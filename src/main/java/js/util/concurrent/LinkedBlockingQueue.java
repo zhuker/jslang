@@ -1,8 +1,10 @@
 package js.util.concurrent;
 
 import js.util.Collection;
-import js.util.Iterator;
-import js.util.function.Consumer;
+import java.util.Iterator;
+
+import java.util.function.Consumer;
+
 
 public class LinkedBlockingQueue<E> implements BlockingQueue<E> {
 
@@ -65,27 +67,6 @@ public class LinkedBlockingQueue<E> implements BlockingQueue<E> {
     public boolean remove(Object o) {
         throw new RuntimeException("TODO Collection<E>.remove");
     }
-
-    @Override
-    public boolean containsAll(java.util.Collection<?> c) {
-        throw new RuntimeException("TODO Collection<E>.containsAll");
-    }
-
-    @Override
-    public boolean addAll(java.util.Collection<? extends E> c) {
-        throw new RuntimeException("TODO Collection<E>.addAll");
-    }
-
-    @Override
-    public boolean removeAll(java.util.Collection<?> c) {
-        throw new RuntimeException("TODO Collection<E>.removeAll");
-    }
-
-    @Override
-    public boolean retainAll(java.util.Collection<?> c) {
-        throw new RuntimeException("TODO Collection<E>.retainAll");
-    }
-
     @Override
     public void clear() {
         throw new RuntimeException("TODO Collection<E>.clear");
@@ -104,6 +85,26 @@ public class LinkedBlockingQueue<E> implements BlockingQueue<E> {
     @Override
     public void put(E ret) {
         throw new RuntimeException("TODO BlockingQueue<E>.put");
+    }
+
+    @Override
+    public boolean containsAll(Collection<?> c) {
+        throw new RuntimeException("TODO Collection<E>.containsAll");
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends E> c) {
+        throw new RuntimeException("TODO Collection<E>.addAll");
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> c) {
+        throw new RuntimeException("TODO Collection<E>.removeAll");
+    }
+
+    @Override
+    public boolean retainAll(Collection<?> c) {
+        throw new RuntimeException("TODO Collection<E>.retainAll");
     }
 
 

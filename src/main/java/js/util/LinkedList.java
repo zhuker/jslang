@@ -1,20 +1,15 @@
 package js.util;
 
-import js.util.Iterator;
+import java.util.Iterator;
+
 import js.util.ListIterator;
-import js.util.function.Consumer;
+import java.util.function.Consumer;
+
 
 public class LinkedList<T> implements List<T> {
 
 	public LinkedList(Collection<T>... arguments) {
 		throw new RuntimeException("TODO");
-	}
-
-	@Override
-	public void add(T item) {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("TODO");
-		
 	}
 
 	@Override
@@ -40,13 +35,6 @@ public class LinkedList<T> implements List<T> {
 	public T remove(int i) {
 		// TODO Auto-generated method stub
 		throw new RuntimeException("TODO");
-	}
-
-	@Override
-	public void addAll(Collection<T> collection) {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("TODO");
-		
 	}
 
 	@Override
@@ -115,14 +103,43 @@ public class LinkedList<T> implements List<T> {
 	}
 
 	@Override
-	public boolean remove(T t) {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("TODO");
-	}
-
-	@Override
 	public int size() {
 		throw new RuntimeException("TODO size");
 	}
+
+    @Override
+    public Object[] toArray() {
+        throw new RuntimeException("TODO Collection<T>.toArray");
+    }
+
+    @Override
+    public boolean add(T e) {
+        throw new RuntimeException("TODO Collection<T>.add");
+    }
+
+    @Override
+    public boolean remove(Object o) {
+        throw new RuntimeException("TODO Collection<T>.remove");
+    }
+
+    @Override
+    public boolean containsAll(Collection<?> c) {
+        throw new RuntimeException("TODO Collection<T>.containsAll");
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends T> c) {
+        throw new RuntimeException("TODO Collection<T>.addAll");
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> c) {
+        throw new RuntimeException("TODO Collection<T>.removeAll");
+    }
+
+    @Override
+    public boolean retainAll(Collection<?> c) {
+        throw new RuntimeException("TODO Collection<T>.retainAll");
+    }
 
 }

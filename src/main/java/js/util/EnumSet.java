@@ -1,6 +1,7 @@
 package js.util;
 
-import js.util.Iterator;
+import java.util.Iterator;
+
 
 public class EnumSet<T> implements Iterable<T> {
 

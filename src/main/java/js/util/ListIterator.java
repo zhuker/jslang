@@ -1,6 +1,6 @@
 package js.util;
 
-import js.util.Iterator;
+import java.util.Iterator;
 
 public interface ListIterator<E> extends Iterator<E> {
 

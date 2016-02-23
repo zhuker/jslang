@@ -1,60 +1,76 @@
 package js.util;
 
-import js.util.Iterator;
-import js.util.function.Consumer;
+import java.util.Iterator;
+
+import java.util.function.Consumer;
+
 
 public class HashSet<E> implements Set<E> {
 
-	public HashSet(Collection<E>... arguments) {
-		throw new RuntimeException("TODO");
-	}
+    @Override
+    public int size() {
+        throw new RuntimeException("TODO Collection<E>.size");
+    }
 
-	@Override
-	public void add(E item) {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("TODO");
-		
-	}
+    @Override
+    public boolean isEmpty() {
+        throw new RuntimeException("TODO Collection<E>.isEmpty");
+    }
 
-	@Override
-	public void addAll(Collection<E> collection) {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("TODO");
-		
-	}
+    @Override
+    public boolean contains(Object o) {
+        throw new RuntimeException("TODO Collection<E>.contains");
+    }
 
-	@Override
-	public boolean isEmpty() {
-		throw new RuntimeException("TODO");
-	}
+    @Override
+    public Object[] toArray() {
+        throw new RuntimeException("TODO Collection<E>.toArray");
+    }
 
-	@Override
-	public boolean contains(Object o) {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("TODO");
-	}
+    @Override
+    public <T> T[] toArray(T[] a) {
+        throw new RuntimeException("TODO Collection<E>.toArray");
+    }
 
-	@Override
-	public Iterator<E> iterator() {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("TODO");
-	}
+    @Override
+    public boolean add(E e) {
+        throw new RuntimeException("TODO Collection<E>.add");
+    }
 
-	@Override
-	public int size() {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("TODO");
-	}
+    @Override
+    public boolean remove(Object o) {
+        throw new RuntimeException("TODO Collection<E>.remove");
+    }
 
-	@Override
-	public <X> X[] toArray(X[] a) {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("TODO");
-	}
+    @Override
+    public boolean containsAll(Collection<?> c) {
+        throw new RuntimeException("TODO Collection<E>.containsAll");
+    }
 
-	@Override
-	public void forEach(Consumer<? super E> action) {
-		throw new RuntimeException("TODO Collection<E>.forEach");
-	}
+    @Override
+    public boolean addAll(Collection<? extends E> c) {
+        throw new RuntimeException("TODO Collection<E>.addAll");
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> c) {
+        throw new RuntimeException("TODO Collection<E>.removeAll");
+    }
+
+    @Override
+    public boolean retainAll(Collection<?> c) {
+        throw new RuntimeException("TODO Collection<E>.retainAll");
+    }
+
+    @Override
+    public void clear() {
+        throw new RuntimeException("TODO Collection<E>.clear");
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        throw new RuntimeException("TODO Set<E>.iterator");
+    }
+
 
 }

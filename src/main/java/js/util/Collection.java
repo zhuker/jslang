@@ -1,23 +1,32 @@
 package js.util;
 
-import js.util.Iterator;
-import js.util.function.Consumer;
+import java.util.Iterator;
 
-public interface Collection<T> extends Iterable<T> {
-	void add(T item);
+public interface Collection<E> extends Iterable<E> {
+    int size();
 
-	void addAll(Collection<T> collection);
+    boolean isEmpty();
 
-	boolean isEmpty();
+    boolean contains(Object o);
 
-	boolean contains(Object o);
+    Iterator<E> iterator();
 
-	Iterator<T> iterator();
+    Object[] toArray();
 
-	int size();
+    <T> T[] toArray(T[] a);
 
-	<X> X[] toArray(X[] a);
+    boolean add(E e);
 
-	void forEach(Consumer<? super T> action);
+    boolean remove(Object o);
+
+    boolean containsAll(Collection<?> c);
+
+    boolean addAll(Collection<? extends E> c);
+
+    boolean removeAll(Collection<?> c);
+
+    boolean retainAll(Collection<?> c);
+
+    void clear();
 
 }

@@ -1,8 +1,8 @@
 package js.util;
 
-import js.util.Iterator;
+import java.util.Iterator;
 import js.util.ListIterator;
-import js.util.function.Consumer;
+import java.util.function.Consumer;
 
 public class ArrayList<T> implements List<T> {
 
@@ -26,13 +26,6 @@ public class ArrayList<T> implements List<T> {
 	}
 
 	@Override
-	public void add(T item) {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("TODO");
-		
-	}
-
-	@Override
 	public <X> X[] toArray(X[] a) {
 		throw new RuntimeException("TODO");
 	}
@@ -52,13 +45,6 @@ public class ArrayList<T> implements List<T> {
 	@Override
 	public T remove(int i) {
 		throw new RuntimeException("TODO");
-	}
-
-	@Override
-	public void addAll(Collection<T> collection) {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("TODO");
-		
 	}
 
 	@Override
@@ -111,9 +97,39 @@ public class ArrayList<T> implements List<T> {
 		
 	}
 
-	@Override
-	public boolean remove(T t) {
-		throw new RuntimeException("TODO");
-	}
+    @Override
+    public Object[] toArray() {
+        throw new RuntimeException("TODO Collection<T>.toArray");
+    }
+
+    @Override
+    public boolean add(T e) {
+        throw new RuntimeException("TODO Collection<T>.add");
+    }
+
+    @Override
+    public boolean remove(Object o) {
+        throw new RuntimeException("TODO Collection<T>.remove");
+    }
+
+    @Override
+    public boolean containsAll(Collection<?> c) {
+        throw new RuntimeException("TODO Collection<T>.containsAll");
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends T> c) {
+        throw new RuntimeException("TODO Collection<T>.addAll");
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> c) {
+        throw new RuntimeException("TODO Collection<T>.removeAll");
+    }
+
+    @Override
+    public boolean retainAll(Collection<?> c) {
+        throw new RuntimeException("TODO Collection<T>.retainAll");
+    }
 
 }
