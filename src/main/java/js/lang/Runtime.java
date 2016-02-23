@@ -9,4 +9,8 @@ public class Runtime {
 		throw new RuntimeException("TODO Runtime.exec");
 	}
 
+    public int availableProcessors() {
+        throw new RuntimeException("TODO Runtime.availableProcessors");
+    }
+
 }

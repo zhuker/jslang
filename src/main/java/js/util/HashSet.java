@@ -6,6 +6,13 @@ import java.util.function.Consumer;
 
 
 public class HashSet<E> implements Set<E> {
+    public HashSet(Collection<? extends E> coll) {
+        throw new RuntimeException("TODO HashSet");
+    }
+
+    public HashSet() {
+        throw new RuntimeException("TODO HashSet");
+    }
 
     @Override
     public int size() {

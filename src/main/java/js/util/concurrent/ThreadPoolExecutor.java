@@ -1,5 +1,9 @@
 package js.util.concurrent;
 
+import js.util.concurrent.Callable;
+import js.util.concurrent.FutureTask;
+import js.util.concurrent.RunnableFuture;
+
 import js.lang.Runnable;
 
 public class ThreadPoolExecutor implements ExecutorService {
@@ -28,6 +32,9 @@ public class ThreadPoolExecutor implements ExecutorService {
     @Override
     public void shutdown() {
         throw new RuntimeException("TODO ExecutorService.shutdown");
+    }
+    protected <T> RunnableFuture<T> newTaskFor(Callable<T> callable) {
+        return new FutureTask<T>(callable);
     }
 
 }

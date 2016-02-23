@@ -4,5 +4,7 @@ public interface Future<V> {
 
 	V get();
     boolean cancel(boolean mayInterruptIfRunning);
+    boolean isCancelled();
+    boolean isDone();
 
 }
