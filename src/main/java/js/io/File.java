@@ -2,16 +2,7 @@ package js.io;
 
 public class File {
 
-	public File(String string, String string2) {
-		throw new RuntimeException("TODO");
-	}
-
-	public File(File dir, String string) {
-		throw new RuntimeException("TODO");
-	}
-
-	public File(String string) {
-		// TODO Auto-generated constructor stub
+	public File(Object... arguments) {
 		throw new RuntimeException("TODO");
 	}
 
@@ -24,10 +15,6 @@ public class File {
 	}
 
 	public String getAbsolutePath() {
-		throw new RuntimeException("TODO");
-	}
-
-	public File[] listFiles() {
 		throw new RuntimeException("TODO");
 	}
 
@@ -55,7 +42,7 @@ public class File {
 		throw new RuntimeException("TODO");
 	}
 
-	public File[] listFiles(FilenameFilter filenameFilter) {
+	public File[] listFiles(Object... arguments) {
 		throw new RuntimeException("TODO");
 	}
 
@@ -64,7 +51,7 @@ public class File {
 		throw new RuntimeException("TODO");
 	}
 
-	public void delete() {
+	public void $delete() {
 		// TODO Auto-generated method stub
 		throw new RuntimeException("TODO");
 		

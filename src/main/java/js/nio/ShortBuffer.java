@@ -10,11 +10,7 @@ public class ShortBuffer {
 		throw new RuntimeException("TODO");
 	}
 
-	public int position() {
-		throw new RuntimeException("TODO");
-	}
-
-	public ShortBuffer position(int i) {
+	public int position(int... arguments) {
 		throw new RuntimeException("TODO");
 	}
 
@@ -26,11 +22,7 @@ public class ShortBuffer {
 		throw new RuntimeException("TODO");
 	}
 
-	public short get(int i) {
-		throw new RuntimeException("TODO");
-	}
-
-	public short get() {
+	public short get(int... arguments) {
 		throw new RuntimeException("TODO");
 	}
 

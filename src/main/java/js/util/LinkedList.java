@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 
 public class LinkedList<T> implements List<T> {
 
-	public LinkedList(Collection<T>... arguments) {
+	public LinkedList(Object... arguments) {
 		throw new RuntimeException("TODO");
 	}
 
@@ -32,7 +32,7 @@ public class LinkedList<T> implements List<T> {
 	}
 
 	@Override
-	public T remove(int i) {
+	public T remove(Object... arguments) {
 		// TODO Auto-generated method stub
 		throw new RuntimeException("TODO");
 	}
@@ -43,7 +43,7 @@ public class LinkedList<T> implements List<T> {
 	}
 
 	@Override
-	public void add(int i, T t) {
+	public Object add(Object... arguments) {
 		// TODO Auto-generated method stub
 		throw new RuntimeException("TODO");
 		
@@ -78,12 +78,6 @@ public class LinkedList<T> implements List<T> {
 	}
 
 	@Override
-	public boolean addAll(int index, Collection<? extends T> c) {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("TODO");
-	}
-
-	@Override
 	public Iterator<T> iterator() {
 		// TODO Auto-generated method stub
 		throw new RuntimeException("TODO");
@@ -108,28 +102,8 @@ public class LinkedList<T> implements List<T> {
 	}
 
     @Override
-    public Object[] toArray() {
-        throw new RuntimeException("TODO Collection<T>.toArray");
-    }
-
-    @Override
-    public boolean add(T e) {
-        throw new RuntimeException("TODO Collection<T>.add");
-    }
-
-    @Override
-    public boolean remove(Object o) {
-        throw new RuntimeException("TODO Collection<T>.remove");
-    }
-
-    @Override
     public boolean containsAll(Collection<?> c) {
         throw new RuntimeException("TODO Collection<T>.containsAll");
-    }
-
-    @Override
-    public boolean addAll(Collection<? extends T> c) {
-        throw new RuntimeException("TODO Collection<T>.addAll");
     }
 
     @Override
@@ -140,6 +114,11 @@ public class LinkedList<T> implements List<T> {
     @Override
     public boolean retainAll(Collection<?> c) {
         throw new RuntimeException("TODO Collection<T>.retainAll");
+    }
+
+    @Override
+    public boolean addAll(Object... arguments) {
+        throw new RuntimeException("TODO Collection<T>.addAll");
     }
 
 }

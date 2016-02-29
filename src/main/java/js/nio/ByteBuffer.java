@@ -2,11 +2,7 @@ package js.nio;
 
 public class ByteBuffer {
 
-	public int position() {
-		throw new RuntimeException("TODO");
-	}
-
-	public int position(int pos) {
+    public int position(int... arguments) {
 		throw new RuntimeException("TODO");
 	}
 
@@ -18,19 +14,11 @@ public class ByteBuffer {
 		throw new RuntimeException("TODO");
 	}
 
-	public byte get() {
+	public byte get(Object... arguments) {
 		throw new RuntimeException("TODO");
 	}
 
 	public boolean hasRemaining() {
-		throw new RuntimeException("TODO");
-	}
-
-	public short getShort() {
-		throw new RuntimeException("TODO");
-	}
-
-	public static ByteBuffer wrap(byte[] codecPrivate) {
 		throw new RuntimeException("TODO");
 	}
 
@@ -50,35 +38,11 @@ public class ByteBuffer {
 		throw new RuntimeException("TODO");
 	}
 
-	public ByteBuffer order(ByteOrder order) {
+	public int limit(int... arguments) {
 		throw new RuntimeException("TODO");
 	}
 
-	public void limit(int i) {
-		throw new RuntimeException("TODO");
-	}
-
-	public ByteBuffer put(byte p1) {
-		throw new RuntimeException("TODO");
-	}
-
-	public int limit() {
-		throw new RuntimeException("TODO");
-	}
-
-	public byte get(int oldPos) {
-		throw new RuntimeException("TODO");
-	}
-
-	public void put(int newPos, byte b) {
-		throw new RuntimeException("TODO");
-	}
-
-	public int getInt() {
-		throw new RuntimeException("TODO");
-	}
-
-	public void put(ByteBuffer buf) {
+	public ByteBuffer put(Object... arguments) {
 		throw new RuntimeException("TODO");
 	}
 
@@ -87,14 +51,6 @@ public class ByteBuffer {
 	}
 
 	public void reset() {
-		throw new RuntimeException("TODO");
-	}
-
-	public void get(byte[] res) {
-		throw new RuntimeException("TODO");
-	}
-
-	public void putShort(short s) {
 		throw new RuntimeException("TODO");
 	}
 
@@ -110,11 +66,7 @@ public class ByteBuffer {
 		throw new RuntimeException("TODO");
 	}
 
-	public ByteOrder order() {
-		throw new RuntimeException("TODO");
-	}
-
-	public ByteBuffer put(byte[] asciiString) {
+	public Object order(ByteOrder... arguments) {
 		throw new RuntimeException("TODO");
 	}
 
@@ -130,14 +82,8 @@ public class ByteBuffer {
 		throw new RuntimeException("TODO");
 	}
 
-	public static ByteBuffer wrap(byte[] tsPkt, int i, int j) {
+	public static ByteBuffer wrap(Object... arguments) {
 		throw new RuntimeException("TODO");
-	}
-
-	public void get(byte[] b, int from, int toRead) {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("TODO");
-		
 	}
 
 	public double getDouble() {
@@ -156,17 +102,12 @@ public class ByteBuffer {
 		throw new RuntimeException("TODO");
 	}
 
-	public int getInt(int pointerPos) {
+	public int getInt(int... arguments) {
 		throw new RuntimeException("TODO");
 	}
 
 	public char getChar() {
 		throw new RuntimeException("TODO");
-	}
-
-	public void put(byte[] asciiString, int i, int j) {
-		throw new RuntimeException("TODO");
-		
 	}
 
 	public void putFloat(float f) {
@@ -177,11 +118,11 @@ public class ByteBuffer {
 		throw new RuntimeException("TODO");
 	}
 
-	public void putShort(int i, short s) {
+	public void putShort(int... arguments) {
 		throw new RuntimeException("TODO");
 	}
 
-	public short getShort(int i) {
+	public short getShort(int... arguments) {
 		// TODO Auto-generated method stub
 		throw new RuntimeException("TODO");
 	}

@@ -5,9 +5,7 @@ import js.util.concurrent.Future;
 
 public interface ExecutorService extends Executor {
 
-	Future<?> submit(Runnable runnable);
-
-	<T> Future<T> submit(Callable<T> task);
+	<T> Future<T> submit(Object object);
 
 	void shutdown();
 

@@ -13,7 +13,7 @@
 		<pluginManagement>
 			<plugins>
 				<!-- configuration for maven plugin 1.0.0 for automatic code generation -->
-				<!--  plugin>
+				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
 					<version>1.0.0</version>
@@ -43,11 +43,11 @@
 							</pluginExecutions>
 						</lifecycleMappingMetadata>
 					</configuration>
-				</plugin -->
+				</plugin>
 			</plugins>
 		</pluginManagement>
 		<plugins>
-			<!--  plugin>
+			<plugin>
 				<groupId>org.st-js</groupId>
 				<artifactId>stjs-maven-plugin</artifactId>
 				<version>${stjs.plugin.version}</version>
@@ -72,7 +72,7 @@
 					</execution>
 				</executions>
 
-			</plugin -->
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>

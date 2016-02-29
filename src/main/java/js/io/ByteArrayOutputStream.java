@@ -2,12 +2,7 @@ package js.io;
 
 public class ByteArrayOutputStream extends OutputStream {
 
-	public ByteArrayOutputStream(int length) {
-		throw new RuntimeException("TODO");
-	}
-
-	public ByteArrayOutputStream() {
-		// TODO Auto-generated constructor stub
+	public ByteArrayOutputStream(Object... arguments) {
 		throw new RuntimeException("TODO");
 	}
 
@@ -19,14 +14,6 @@ public class ByteArrayOutputStream extends OutputStream {
 	}
 
 	public byte[] toByteArray() {
-		throw new RuntimeException("TODO");
-	}
-
-	public void write(byte[] bs) {
-		throw new RuntimeException("TODO");
-	}
-
-	public void write(int b) {
 		throw new RuntimeException("TODO");
 	}
 

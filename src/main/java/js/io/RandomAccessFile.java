@@ -4,11 +4,7 @@ import js.nio.channels.FileChannel;
 
 public class RandomAccessFile implements Closeable {
 
-	public RandomAccessFile(File file, String string) {
-		throw new RuntimeException("TODO");
-	}
-
-	public RandomAccessFile(String file, String string) {
+	public RandomAccessFile(Object... arguments) {
 		// TODO Auto-generated constructor stub
 		throw new RuntimeException("TODO");
 	}

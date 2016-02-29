@@ -18,28 +18,19 @@ public class IntBuffer {
 		throw new RuntimeException("TODO");
 	}
 
-	public int get(int i) {
+	public int get(int... arguments) {
 		throw new RuntimeException("TODO");
 	}
 
-	public void put(int range_limit) {
+	public void put(int... arguments) {
 		throw new RuntimeException("TODO");
-		
 	}
 
 	public int capacity() {
 		throw new RuntimeException("TODO");
 	}
 
-	public IntBuffer position(int i) {
-		throw new RuntimeException("TODO");
-	}
-
-	public void put(int i, int dcval) {
-		throw new RuntimeException("TODO");
-	}
-
-	public int position() {
+	public int position(int... arguments) {
 		throw new RuntimeException("TODO");
 	}
 
@@ -48,10 +39,6 @@ public class IntBuffer {
 	}
 
 	public boolean hasRemaining() {
-		throw new RuntimeException("TODO");
-	}
-
-	public int get() {
 		throw new RuntimeException("TODO");
 	}
 

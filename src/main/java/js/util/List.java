@@ -10,14 +10,10 @@ public interface List<T> extends Collection<T> {
 
 	void clear();
 
-	T remove(int i);
-
-	void add(int i, T t);
+	T remove(Object... arguments);
 
 	ListIterator<T> listIterator();
 
 	int indexOf(T t);
-
-	boolean addAll(int index, Collection<? extends T> c);
 
 }

@@ -8,7 +8,7 @@ public class FutureTask<V> implements RunnableFuture<V> {
     }
 
     @Override
-    public V get() {
+    public V get(Object... arguments) {
         throw new RuntimeException("TODO Future<V>.get");
     }
 

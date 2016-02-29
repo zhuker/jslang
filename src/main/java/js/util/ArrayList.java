@@ -6,17 +6,7 @@ import java.util.function.Consumer;
 
 public class ArrayList<T> implements List<T> {
 
-	public ArrayList(int i) {
-		// TODO Auto-generated constructor stub
-		throw new RuntimeException("TODO");
-	}
-
-	public ArrayList(Collection<? extends T> gop) {
-		// TODO Auto-generated constructor stub
-		throw new RuntimeException("TODO");
-	}
-
-	public ArrayList() {
+	public ArrayList(Object... arguments) {
 		throw new RuntimeException("TODO");
 	}
 
@@ -43,19 +33,13 @@ public class ArrayList<T> implements List<T> {
 	}
 
 	@Override
-	public T remove(int i) {
-		throw new RuntimeException("TODO");
-	}
-
-	@Override
 	public boolean isEmpty() {
 		// TODO Auto-generated method stub
 		throw new RuntimeException("TODO");
 	}
 
 	@Override
-	public void add(int i, T t) {
-		// TODO Auto-generated method stub
+	public Object add(Object... arguments) {
 		throw new RuntimeException("TODO");
 		
 	}
@@ -80,12 +64,6 @@ public class ArrayList<T> implements List<T> {
 	}
 
 	@Override
-	public boolean addAll(int index, Collection<? extends T> c) {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("TODO");
-	}
-
-	@Override
 	public Iterator<T> iterator() {
 		throw new RuntimeException("TODO");
 	}
@@ -98,28 +76,13 @@ public class ArrayList<T> implements List<T> {
 	}
 
     @Override
-    public Object[] toArray() {
-        throw new RuntimeException("TODO Collection<T>.toArray");
-    }
-
-    @Override
-    public boolean add(T e) {
-        throw new RuntimeException("TODO Collection<T>.add");
-    }
-
-    @Override
-    public boolean remove(Object o) {
+    public T remove(Object... arguments) {
         throw new RuntimeException("TODO Collection<T>.remove");
     }
 
     @Override
     public boolean containsAll(Collection<?> c) {
         throw new RuntimeException("TODO Collection<T>.containsAll");
-    }
-
-    @Override
-    public boolean addAll(Collection<? extends T> c) {
-        throw new RuntimeException("TODO Collection<T>.addAll");
     }
 
     @Override
@@ -130,6 +93,11 @@ public class ArrayList<T> implements List<T> {
     @Override
     public boolean retainAll(Collection<?> c) {
         throw new RuntimeException("TODO Collection<T>.retainAll");
+    }
+
+    @Override
+    public boolean addAll(Object... arguments) {
+        throw new RuntimeException("TODO Collection<T>.addAll");
     }
 
 }

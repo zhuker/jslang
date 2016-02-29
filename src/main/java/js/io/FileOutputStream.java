@@ -4,15 +4,7 @@ import js.nio.channels.FileChannel;
 
 public class FileOutputStream extends OutputStream {
 
-	public FileOutputStream(File f) throws FileNotFoundException {
-		if (!f.exists()) {
-			throw new FileNotFoundException(f);
-		}
-		throw new RuntimeException("TODO");
-	}
-
-	public FileOutputStream(String string) {
-		// TODO Auto-generated constructor stub
+	public FileOutputStream(Object... arguments) throws FileNotFoundException {
 		throw new RuntimeException("TODO");
 	}
 

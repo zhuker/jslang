@@ -9,7 +9,7 @@ import java.util.function.Consumer;
 public class LinkedBlockingQueue<E> implements BlockingQueue<E> {
 
     @Override
-    public boolean add(E e) {
+    public Object add(Object... arguments) {
         throw new RuntimeException("TODO Queue<E>.add");
     }
 
@@ -19,7 +19,7 @@ public class LinkedBlockingQueue<E> implements BlockingQueue<E> {
     }
 
     @Override
-    public E remove() {
+    public E remove(Object... arguments) {
         throw new RuntimeException("TODO Queue<E>.remove");
     }
 
@@ -54,19 +54,10 @@ public class LinkedBlockingQueue<E> implements BlockingQueue<E> {
     }
 
     @Override
-    public Object[] toArray() {
-        throw new RuntimeException("TODO Collection<E>.toArray");
-    }
-
-    @Override
     public <T> T[] toArray(T[] a) {
         throw new RuntimeException("TODO Collection<E>.toArray");
     }
 
-    @Override
-    public boolean remove(Object o) {
-        throw new RuntimeException("TODO Collection<E>.remove");
-    }
     @Override
     public void clear() {
         throw new RuntimeException("TODO Collection<E>.clear");
@@ -93,11 +84,6 @@ public class LinkedBlockingQueue<E> implements BlockingQueue<E> {
     }
 
     @Override
-    public boolean addAll(Collection<? extends E> c) {
-        throw new RuntimeException("TODO Collection<E>.addAll");
-    }
-
-    @Override
     public boolean removeAll(Collection<?> c) {
         throw new RuntimeException("TODO Collection<E>.removeAll");
     }
@@ -105,6 +91,11 @@ public class LinkedBlockingQueue<E> implements BlockingQueue<E> {
     @Override
     public boolean retainAll(Collection<?> c) {
         throw new RuntimeException("TODO Collection<E>.retainAll");
+    }
+
+    @Override
+    public boolean addAll(Object... arguments) {
+        throw new RuntimeException("TODO Collection<E>.addAll");
     }
 
 

@@ -4,11 +4,7 @@ import js.nio.channels.FileChannel;
 
 public class FileInputStream extends InputStream {
 
-	public FileInputStream(File file) {
-		throw new RuntimeException("TODO");
-	}
-
-	public FileInputStream(String string) throws FileNotFoundException {
+	public FileInputStream(Object... arguments) throws FileNotFoundException {
 		throw new RuntimeException("TODO");
 	}
 

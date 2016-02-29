@@ -20,12 +20,7 @@ public class ThreadPoolExecutor implements ExecutorService {
     }
 
     @Override
-    public Future<?> submit(Runnable runnable) {
-        throw new RuntimeException("TODO ExecutorService.submit");
-    }
-
-    @Override
-    public <T> Future<T> submit(Callable<T> task) {
+    public <T> Future<T> submit(Object task) {
         throw new RuntimeException("TODO ExecutorService.submit");
     }
 

@@ -8,7 +8,7 @@ public class Logger {
 		throw new RuntimeException("TODO");
 	}
 
-	public void log(Level level, String string, Object param) {
+	public void log(Object... arguments) {
 		throw new RuntimeException("TODO");
 	}
 
@@ -36,9 +36,5 @@ public class Logger {
 		throw new RuntimeException("TODO");
 	}
 
-	public void log(Level level, String string) {
-		throw new RuntimeException("TODO");
-		
-	}
 
 }

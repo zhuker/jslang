@@ -4,13 +4,8 @@ import java.util.Iterator;
 
 import java.util.function.Consumer;
 
-
 public class HashSet<E> implements Set<E> {
-    public HashSet(Collection<? extends E> coll) {
-        throw new RuntimeException("TODO HashSet");
-    }
-
-    public HashSet() {
+    public HashSet(Object... arguments) {
         throw new RuntimeException("TODO HashSet");
     }
 
@@ -30,22 +25,17 @@ public class HashSet<E> implements Set<E> {
     }
 
     @Override
-    public Object[] toArray() {
-        throw new RuntimeException("TODO Collection<E>.toArray");
-    }
-
-    @Override
     public <T> T[] toArray(T[] a) {
         throw new RuntimeException("TODO Collection<E>.toArray");
     }
 
     @Override
-    public boolean add(E e) {
+    public Object add(Object...arguments) {
         throw new RuntimeException("TODO Collection<E>.add");
     }
 
     @Override
-    public boolean remove(Object o) {
+    public Boolean remove(Object... arguments) {
         throw new RuntimeException("TODO Collection<E>.remove");
     }
 
@@ -53,12 +43,7 @@ public class HashSet<E> implements Set<E> {
     public boolean containsAll(Collection<?> c) {
         throw new RuntimeException("TODO Collection<E>.containsAll");
     }
-
-    @Override
-    public boolean addAll(Collection<? extends E> c) {
-        throw new RuntimeException("TODO Collection<E>.addAll");
-    }
-
+ 
     @Override
     public boolean removeAll(Collection<?> c) {
         throw new RuntimeException("TODO Collection<E>.removeAll");
@@ -77,6 +62,11 @@ public class HashSet<E> implements Set<E> {
     @Override
     public Iterator<E> iterator() {
         throw new RuntimeException("TODO Set<E>.iterator");
+    }
+
+    @Override
+    public boolean addAll(Object... arguments) {
+        throw new RuntimeException("TODO Collection<E>.addAll");
     }
 
 

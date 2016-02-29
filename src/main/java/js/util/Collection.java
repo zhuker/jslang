@@ -11,17 +11,15 @@ public interface Collection<E> extends Iterable<E> {
 
     Iterator<E> iterator();
 
-    Object[] toArray();
-
     <T> T[] toArray(T[] a);
 
-    boolean add(E e);
+    Object add(Object... arguments);
 
-    boolean remove(Object o);
+    Object remove(Object... arguments);
 
     boolean containsAll(Collection<?> c);
 
-    boolean addAll(Collection<? extends E> c);
+    boolean addAll(Object... arguments);
 
     boolean removeAll(Collection<?> c);
 

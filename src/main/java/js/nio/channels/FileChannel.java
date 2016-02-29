@@ -37,17 +37,12 @@ public class FileChannel implements ReadableByteChannel {
 		throw new RuntimeException("TODO");
 	}
 
-	public long position() {
+	public long position(long... arguments) {
 		throw new RuntimeException("TODO");
 	}
 
 	public int read(ByteBuffer arg0) {
 		throw new RuntimeException("TODO");
-	}
-
-	public void position(long savedPos) {
-		throw new RuntimeException("TODO");
-		
 	}
 
 	public void close() {

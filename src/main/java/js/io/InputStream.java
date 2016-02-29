@@ -2,11 +2,7 @@ package js.io;
 
 public abstract class InputStream implements Closeable {
 
-	public int read() throws IOException {
-		throw new RuntimeException("TODO");
-	}
-
-	public int read(byte[] buf, int read, int i) throws IOException {
+	public int read(Object... arguments) throws IOException {
 		throw new RuntimeException("TODO");
 	}
 
@@ -15,10 +11,6 @@ public abstract class InputStream implements Closeable {
 	}
 	@Override
 	public void close() throws IOException {
-		throw new RuntimeException("TODO");
-	}
-
-	public int read(byte[] buf1) {
 		throw new RuntimeException("TODO");
 	}
 

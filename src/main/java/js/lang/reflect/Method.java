@@ -8,7 +8,7 @@ public class Method {
         throw new RuntimeException("TODO Method.getName");
     }
 
-    public Object invoke(Object obj, Object... args) {
+    public Object invoke(Object... arguments) {
         throw new RuntimeException("TODO Method.invoke");
     }
 

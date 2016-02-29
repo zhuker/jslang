@@ -7,27 +7,10 @@ public class System {
 	public static PrintStream out;
 	public static PrintStream err;
 
-	public static void arraycopy(byte[] src, int srcPos, byte[] dst, int dstPos, int len) {
+	public static void arraycopy(Object src, int srcPos, Object dst, int dstPos, int len) {
 		throw new RuntimeException("TODO");
 	}
-
-	public static void arraycopy(int[] storage, int srcPos, int[] ns, int dstPos, int length) {
-		throw new RuntimeException("TODO");
-	}
-
-	public static void arraycopy(float[] src, int srcPos, float[] dst, int dstPos, int len) {
-		throw new RuntimeException("TODO");
-		
-	}
-
-	public static void arraycopy(Object[] storage, int srcPos, Object[] ns, int dstPos, int length) {
-		throw new RuntimeException("TODO");
-	}
-
-	public static void arraycopy(long[] array1, int srcPos, long[] joinedArray, int dstPos, int length) {
-		throw new RuntimeException("TODO");
-	}
-
+    
 	public static void exit(int i) {
 		throw new RuntimeException("TODO");
 	}
@@ -48,8 +31,5 @@ public class System {
 		throw new RuntimeException("TODO");
 	}
 
-	public static void arraycopy(short[] input, int srcPos, short[] copy, int dstPos, int len) {
-		throw new RuntimeException("TODO");
-	}
 
 }

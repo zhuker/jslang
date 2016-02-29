@@ -7,28 +7,11 @@ public class PrintStream extends OutputStream {
 		throw new RuntimeException("TODO");
 	}
 
-	public void println(Object o) {
+	public void println(Object... arguments) {
 		throw new RuntimeException("TODO");
-	}
-
-	public void flush() {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("TODO");
-		
-	}
-
-	public void write(int i) {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("TODO");
-		
 	}
 
 	public void print(Object o) {
-		
-	}
-
-	public void println() {
-		throw new RuntimeException("TODO");
 	}
 
 	public void printf(Object... arguments) {

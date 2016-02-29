@@ -2,15 +2,7 @@ package js.lang;
 
 public class StringBuilder {
 
-	public StringBuilder(int i) {
-		throw new RuntimeException("TODO");
-	}
-
-	public StringBuilder(String string) {
-		throw new RuntimeException("TODO StringBuilder");
-	}
-
-	public StringBuilder() {
+	public StringBuilder(Object... arguments) {
 		throw new RuntimeException("TODO StringBuilder");
 	}
 
