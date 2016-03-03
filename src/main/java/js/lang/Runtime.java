@@ -1,16 +1,22 @@
 package js.lang;
+
 public class Runtime {
 
-	public static Runtime getRuntime() {
-		throw new RuntimeException("TODO Runtime.getRuntime");
-	}
+    private Runtime() {
+    }
 
-	public Process exec(String string) {
-		throw new RuntimeException("TODO Runtime.exec");
-	}
+    private final static Runtime instance = new Runtime();
+
+    public static Runtime getRuntime() {
+        return instance;
+    }
+
+    public Process exec(String string) {
+        throw new RuntimeException("TODO Runtime.exec");
+    }
 
     public int availableProcessors() {
-        throw new RuntimeException("TODO Runtime.availableProcessors");
+        return 1;
     }
 
 }

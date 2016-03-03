@@ -2,12 +2,14 @@ package js.lang;
 
 public class ThreadLocal<T> {
 
-	public T get() {
-		throw new RuntimeException("TODO ThreadLocal.get");
-	}
+    T value;
 
-	public void set(T t) {
-		throw new RuntimeException("TODO ThreadLocal.set");
-	}
+    public T get() {
+        return value;
+    }
+
+    public void set(T val) {
+        this.value = val;
+    }
 
 }

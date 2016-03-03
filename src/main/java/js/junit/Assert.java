@@ -6,7 +6,7 @@ public class Assert {
     }
 
     public static void assertEquals(Object... arguments) {
-        throw new RuntimeException("TODO Assert.assertEquals");
+        throw new RuntimeException("TODO jsunit Assert.assertEquals");
     }
 
 }

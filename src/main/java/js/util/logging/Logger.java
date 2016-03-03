@@ -1,40 +1,48 @@
 package js.util.logging;
 
+import static js.node.NodeJS.console;
+
+import js.lang.FixMe;
+import js.util.Collections;
 import js.util.List;
 
 public class Logger {
+    private final static Logger instance = new Logger("ctx");
 
-	public static Logger getLogger(String string) {
-		throw new RuntimeException("TODO");
-	}
+    private Logger(String ctx) {
+    }
 
-	public void log(Object... arguments) {
-		throw new RuntimeException("TODO");
-	}
+    public static Logger getLogger(String string) {
+        return instance;
+    }
 
-	public void finest(String string) {
-		throw new RuntimeException("TODO");
-	}
+    public void log(Object... arguments) {
+        console.log(arguments);
+    }
 
-	public void warning(String string) {
-		throw new RuntimeException("TODO");
-	}
+    public void finest(String string) {
+        console.log(string);
+    }
 
-	public List<Handler> getHandlers() {
-		throw new RuntimeException("TODO");
-	}
+    public void warning(String string) {
+        console.log(string);
+    }
 
-	public void removeHandler(Handler h) {
-		throw new RuntimeException("TODO");
-	}
+    @FixMe
+    public List<Handler> getHandlers() {
+        return Collections.<Handler>emptyList();
+    }
 
-	public void setLevel(Level all) {
-		throw new RuntimeException("TODO");
-	}
+    @FixMe
+    public void removeHandler(Handler h) {
+    }
 
-	public void addHandler(Handler h) {
-		throw new RuntimeException("TODO");
-	}
+    @FixMe
+    public void setLevel(Level all) {
+    }
 
+    @FixMe
+    public void addHandler(Handler h) {
+    }
 
 }

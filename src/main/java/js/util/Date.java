@@ -1,5 +1,8 @@
 package js.util;
 
+import org.stjs.javascript.annotation.Namespace;
+
+@Namespace("jsutil")
 public class Date {
 
 	public Date(Object... arguments) {

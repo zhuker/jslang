@@ -4,16 +4,18 @@ import js.util.ListIterator;
 
 public interface List<T> extends Collection<T> {
 
-	T get(int idx);
+    T get(int idx);
 
-	int size();
+    T set(int index, T element);
 
-	void clear();
+    int size();
 
-	T remove(Object... arguments);
+    void clear();
 
-	ListIterator<T> listIterator();
+    T remove(Object... arguments);
 
-	int indexOf(T t);
+    ListIterator<T> listIterator();
+
+    int indexOf(T t);
 
 }

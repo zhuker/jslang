@@ -1,21 +1,26 @@
 package js.lang;
 
 public class StackTraceElement {
+    final static StackTraceElement Fake = new StackTraceElement();
 
+    @FixMe
     public String getFileName() {
-        throw new RuntimeException("TODO StackTraceElement.getFileName");
+        return "UnknownFile";
     }
 
+    @FixMe
     public String getClassName() {
-        throw new RuntimeException("TODO StackTraceElement.getClassName");
+        return "UnknownClass";
     }
 
+    @FixMe
     public String getMethodName() {
-        throw new RuntimeException("TODO StackTraceElement.getMethodName");
+        return "unknownMethod";
     }
 
+    @FixMe
     public int getLineNumber() {
-        throw new RuntimeException("TODO StackTraceElement.getLineNumber");
+        return 42;
     }
 
 }

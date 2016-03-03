@@ -1,21 +1,23 @@
 package js.io;
 
+import js.lang.FixMe;
+
 public class PrintStream extends OutputStream {
 
+    @FixMe
 	public PrintStream(OutputStream outputStream) {
-		// TODO Auto-generated constructor stub
-		throw new RuntimeException("TODO");
 	}
 
+    @FixMe
 	public void println(Object... arguments) {
-		throw new RuntimeException("TODO");
 	}
 
+    @FixMe
 	public void print(Object o) {
 	}
 
+    @FixMe
 	public void printf(Object... arguments) {
-		throw new RuntimeException("TODO");
 	}
 
 }

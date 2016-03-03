@@ -2,8 +2,10 @@ package js.lang;
 
 public class Thread {
 
+    private Runnable r;
+
     public Thread(js.lang.Runnable r) {
-        throw new RuntimeException("TODO Thread");
+        this.r = r;
     }
 
     public void setDaemon(boolean b) {
@@ -14,12 +16,17 @@ public class Thread {
         throw new RuntimeException("TODO Thread.setName");
     }
 
+    private final static Thread CurrentThread = new Thread(null);
+
     public static Thread currentThread() {
-        throw new RuntimeException("TODO Thread.currentThread");
+        return CurrentThread;
     }
 
+    private static final StackTraceElement[] FakeStackTrace = new StackTraceElement[] { StackTraceElement.Fake,
+            StackTraceElement.Fake, StackTraceElement.Fake, StackTraceElement.Fake };
+
     public js.lang.StackTraceElement[] getStackTrace() {
-        throw new RuntimeException("TODO Thread.getStackTrace");
+        return FakeStackTrace;
     }
 
 }

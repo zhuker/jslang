@@ -11,11 +11,11 @@ public class Executors {
 	}
 
 	public static ScheduledExecutorService newSingleThreadScheduledExecutor() {
-		throw new RuntimeException("TODO");
+        return new JSScheduledExecutorService();
 	}
 
 	public static ScheduledExecutorService newScheduledThreadPool(int i, ThreadFactory daemonThreadFactory) {
-		throw new RuntimeException("TODO");
+	    return new JSScheduledExecutorService();
 	}
 
 }

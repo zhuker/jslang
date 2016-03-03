@@ -1,6 +1,13 @@
 package js.util.concurrent;
 
-public enum TimeUnit {
-	MILLISECONDS
+public final class TimeUnit {
+    public final static TimeUnit MILLISECONDS = new TimeUnit();
+
+    public TimeUnit() {
+    }
+
+    public long toMillis(long period) {
+        return period;
+    }
 
 }
