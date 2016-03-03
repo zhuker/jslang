@@ -54,7 +54,7 @@ public class HashMap<K, V> implements Map<K, V> {
                     String str = JSFunctionAdapter.call(_toString, k);
                     return str;
                 } catch (Exception e) {
-                    console.error("error", e);
+//                    console.error("error", e);
                 }
             }
             if ("function" == JSGlobal.typeof(k)) {

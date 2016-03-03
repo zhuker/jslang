@@ -114,7 +114,7 @@ public class HashSet<E> implements Set<E> {
                     String str = _toString.$invoke();
                     return str;
                 } catch (Exception e) {
-                    console.error("error", e);
+//                    console.error("error", e);
                 }
             }
             if ("function" == JSGlobal.typeof(k)) {
