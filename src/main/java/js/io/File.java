@@ -1,6 +1,11 @@
 package js.io;
 
+import js.node.FS;
+import js.node.FS.Stats;
+import js.node.NodeJS;
+
 public class File {
+    private final static FS fs = NodeJS.require("fs");
 
     private String path;
 
@@ -13,7 +18,11 @@ public class File {
     }
 
     public long length() {
-        throw new RuntimeException("TODO");
+        Stats statSync = fs.statSync(path);
+        if (statSync != null) {
+            return statSync.size;
+        }
+        return 0;
     }
 
     public static File createTempFile(String string, String string2) {
@@ -81,7 +90,7 @@ public class File {
         throw new RuntimeException("TODO");
 
     }
-    
+
     public String getPath() {
         return path;
     }

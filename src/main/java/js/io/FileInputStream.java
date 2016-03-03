@@ -23,14 +23,22 @@ public class FileInputStream extends InputStream {
         }
     }
 
-    public int read(Object... arguments) throws IOException {
-        return bais.read(arguments);
+    @Override
+    protected int read0() {
+        return bais.read0();
     }
 
-    public int hashCode() {
-        return bais.hashCode();
+    @Override
+    protected int read1(byte[] buf) {
+        return bais.read1(buf);
     }
 
+    @Override
+    protected int read3(byte[] buf, int off, int len) {
+        return bais.read3(buf, off, len);
+    }
+
+    @Override
     public long skip(long n) {
         return bais.skip(n);
     }
@@ -45,10 +53,6 @@ public class FileInputStream extends InputStream {
 
     public void reset() {
         bais.reset();
-    }
-
-    public boolean equals(Object obj) {
-        return bais.equals(obj);
     }
 
     public FileChannel getChannel() {
