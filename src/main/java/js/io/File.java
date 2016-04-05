@@ -1,5 +1,9 @@
 package js.io;
 
+import static org.stjs.javascript.Global.console;
+
+import org.stjs.javascript.Array;
+
 import js.node.FS;
 import js.node.FS.Stats;
 import js.node.NodeJS;
@@ -10,9 +14,15 @@ public class File {
     private String path;
 
     public File(Object... arguments) {
-        if (arguments.length == 1) {
+        switch (arguments.length) {
+        case 1:
             this.path = (String) arguments[0];
-        } else {
+            break;
+        case 2:
+            File dir = (File) arguments[0];
+            this.path = dir.path + "/" + arguments[1];
+            break;
+        default:
             throw new RuntimeException("TODO File.init");
         }
     }
@@ -23,6 +33,11 @@ public class File {
             return statSync.size;
         }
         return 0;
+    }
+
+    @Override
+    public String toString() {
+        return path;
     }
 
     public static File createTempFile(String string, String string2) {
@@ -58,7 +73,16 @@ public class File {
     }
 
     public File[] listFiles(Object... arguments) {
-        throw new RuntimeException("TODO");
+        Array<String> readdirSync = fs.readdirSync(path);
+        console.log("readdirSync", readdirSync);
+        if (readdirSync != null) {
+            File[] res = new File[readdirSync.$length()];
+            for (int i = 0; i < readdirSync.$length(); i++) {
+                res[i] = new File(path + "/" + readdirSync.$get(i));
+            }
+            return res;
+        }
+        return null;
     }
 
     public String getCanonicalPath() {
@@ -67,9 +91,7 @@ public class File {
     }
 
     public void $delete() {
-        // TODO Auto-generated method stub
-        throw new RuntimeException("TODO");
-
+        fs.unlinkSync(path);
     }
 
     public String getParent() {
@@ -77,8 +99,8 @@ public class File {
     }
 
     public boolean mkdirs() {
-        // TODO Auto-generated method stub
-        throw new RuntimeException("TODO");
+        _mkdirs(path);
+        return isDir(path);
     }
 
     public long lastModified() {
@@ -95,4 +117,41 @@ public class File {
         return path;
     }
 
+    static boolean isDir(String path) {
+        try {
+            Stats statSync = fs.statSync(path);
+            return statSync.isDirectory();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    static void _mkdirs(String outDir) {
+        int idx = 0;
+        if (isDir(outDir)) {
+            return;
+        }
+        while ((idx = outDir.indexOf("/", idx + 1)) >= 0) {
+            String path = outDir.substring(0, idx);
+            if (!isDir(path)) {
+                _mkdir(path);
+            }
+        }
+        if (!isDir(outDir)) {
+            _mkdir(outDir);
+        }
+    }
+
+    private static void _mkdir(String path) {
+        console.log("mkdir", path);
+        try {
+            fs.mkdirSync(path);
+        } catch (Exception e) {
+            if (isDir(path)) {
+                //this happens when two processes are trying to create same dir simultaneously
+            } else {
+                throw (RuntimeException) e;
+            }
+        }
+    }
 }

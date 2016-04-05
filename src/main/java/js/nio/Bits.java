@@ -3,6 +3,14 @@ package js.nio;
 import js.nio.ByteBuffer;
 
 class Bits {
+    private static byte long7(long x) { return (byte)(x / 0x100000000L >> 24); }
+    private static byte long6(long x) { return (byte)(x / 0x100000000L >> 16); }
+    private static byte long5(long x) { return (byte)(x / 0x100000000L >> 8); }
+    private static byte long4(long x) { return (byte)(x / 0x100000000L >> 0); }
+    private static byte long3(long x) { return (byte)(x >> 24); }
+    private static byte long2(long x) { return (byte)(x >> 16); }
+    private static byte long1(long x) { return (byte)(x >>  8); }
+    private static byte long0(long x) { return (byte)(x      ); }
 
     private static byte int3(int x) {
         return (byte) (x >> 24);
@@ -18,6 +26,27 @@ class Bits {
 
     private static byte int0(int x) {
         return (byte) (x);
+    }
+    static void putLongB(ByteBuffer bb, int bi, long x) {
+        bb._put(bi    , long7(x));
+        bb._put(bi + 1, long6(x));
+        bb._put(bi + 2, long5(x));
+        bb._put(bi + 3, long4(x));
+        bb._put(bi + 4, long3(x));
+        bb._put(bi + 5, long2(x));
+        bb._put(bi + 6, long1(x));
+        bb._put(bi + 7, long0(x));
+    }
+
+    static void putLongL(ByteBuffer bb, int bi, long x) {
+        bb._put(bi + 7, long7(x));
+        bb._put(bi + 6, long6(x));
+        bb._put(bi + 5, long5(x));
+        bb._put(bi + 4, long4(x));
+        bb._put(bi + 3, long3(x));
+        bb._put(bi + 2, long2(x));
+        bb._put(bi + 1, long1(x));
+        bb._put(bi    , long0(x));
     }
 
     static void putIntB(ByteBuffer bb, int bi, int x) {
@@ -97,5 +126,11 @@ class Bits {
             putShortB(bb, bi, x);
         else
             putShortL(bb, bi, x);
+    }
+    static void putLong(ByteBuffer bb, int bi, long x, boolean bigEndian) {
+        if (bigEndian)
+            putLongB(bb, bi, x);
+        else
+            putLongL(bb, bi, x);
     }
 }

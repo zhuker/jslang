@@ -98,11 +98,6 @@ public class HashSet<E> implements Set<E> {
         throw new RuntimeException("TODO Set<E>.iterator");
     }
 
-    @Override
-    public boolean addAll(Object... arguments) {
-        throw new RuntimeException("TODO Collection<E>.addAll");
-    }
-
     private String makeKey(E k) {
         if (k != null) {
             if ("string" == JSGlobal.typeof(k) || "number" == JSGlobal.typeof(k)) {
@@ -126,5 +121,10 @@ public class HashSet<E> implements Set<E> {
         }
         console.error("key", k);
         throw new IllegalArgumentException("supported key types: string, number, Function.name, anything.toString()");
+    }
+
+    @Override
+    public boolean addAll(Collection<E> other) {
+        throw new RuntimeException("TODO Collection<E>.addAll");
     }
 }

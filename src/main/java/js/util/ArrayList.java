@@ -1,11 +1,14 @@
 package js.util;
 
+import static org.stjs.javascript.JSFunctionAdapter.call;
 import static org.stjs.javascript.JSGlobal.typeof;
 
 import java.util.Iterator;
+import java.util.function.Consumer;
 
 import org.stjs.javascript.Array;
 import org.stjs.javascript.Global;
+import org.stjs.javascript.JSFunctionAdapter;
 
 public class ArrayList<T> implements List<T> {
 
@@ -42,7 +45,7 @@ public class ArrayList<T> implements List<T> {
 
     private void rangeCheck(int index) {
         if (index >= _array.$length())
-            throw new js.lang.IndexOutOfBoundsException("" + index);
+            throw new js.lang.IndexOutOfBoundsException("rangeCheck " + index);
     }
 
     @Override
@@ -58,11 +61,6 @@ public class ArrayList<T> implements List<T> {
     @Override
     public boolean retainAll(Collection<?> c) {
         throw new RuntimeException("TODO Collection<T>.retainAll");
-    }
-
-    @Override
-    public boolean addAll(Object... arguments) {
-        throw new RuntimeException("TODO Collection<T>.addAll");
     }
 
     @Override
@@ -137,6 +135,27 @@ public class ArrayList<T> implements List<T> {
         T oldValue = _array.$get(index);
         _array.$set(index, element);
         return oldValue;
+    }
+
+    @Override
+    public void forEach(Consumer<? super T> action) {
+        int len = size();
+        for (int i = 0; i < len; i++) {
+            call(action, action, _array.$get(i));
+        }
+    }
+
+    @Override
+    public boolean addAll(Collection<T> other) {
+        for (T t : other) {
+            _array.push(t);
+        }
+        return other.size() != 0;
+    }
+
+    @Override
+    public boolean addAllAt(int idx, Collection<T> other) {
+        throw new RuntimeException("TODO Collection<T>.addAllAt");
     }
 
 }

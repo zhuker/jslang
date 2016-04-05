@@ -19,7 +19,7 @@ public interface Collection<E> extends Iterable<E> {
 
     boolean containsAll(Collection<?> c);
 
-    boolean addAll(Object... arguments);
+    boolean addAll(Collection<E> other);
 
     boolean removeAll(Collection<?> c);
 

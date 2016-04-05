@@ -5,12 +5,21 @@ import org.stjs.javascript.annotation.Namespace;
 @Namespace("jsutil")
 public class Date {
 
-	public Date(Object... arguments) {
-		throw new RuntimeException("TODO");
-	}
+    private long time;
 
-	public long getTime() {
-		throw new RuntimeException("TODO");
-	}
+    public Date(Object... arguments) {
+        switch (arguments.length) {
+        case 0:
+            this.time = (long) new org.stjs.javascript.Date().getTime();
+            break;
+        default:
+            throw new RuntimeException("Date.init " + arguments.length);
+
+        }
+    }
+
+    public long getTime() {
+        return time;
+    }
 
 }

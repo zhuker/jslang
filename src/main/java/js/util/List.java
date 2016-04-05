@@ -14,6 +14,8 @@ public interface List<T> extends Collection<T> {
 
     T remove(Object... arguments);
 
+    boolean addAllAt(int idx, Collection<T> other);
+
     ListIterator<T> listIterator();
 
     int indexOf(T t);

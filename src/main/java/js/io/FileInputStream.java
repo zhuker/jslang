@@ -4,6 +4,7 @@ import org.stjs.javascript.typed.ArrayBuffer;
 import org.stjs.javascript.typed.Int8Array;
 
 import js.nio.channels.FileChannel;
+import js.nio.channels.MockFileChannel;
 import js.node.FS;
 import js.node.NodeJS;
 
@@ -56,7 +57,7 @@ public class FileInputStream extends InputStream {
     }
 
     public FileChannel getChannel() {
-        return new FileChannel(arr);
+        return new MockFileChannel(arr);
     }
 
     @Override

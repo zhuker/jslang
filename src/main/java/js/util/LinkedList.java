@@ -4,14 +4,11 @@ import static org.stjs.javascript.Global.console;
 import static org.stjs.javascript.JSGlobal.typeof;
 
 import java.util.Iterator;
-
-import js.util.ListIterator;
 import java.util.function.Consumer;
 
 import org.stjs.javascript.Array;
-import org.stjs.javascript.Global;
 
-public class LinkedList<T> implements List<T> {
+public class LinkedList<T> implements List<T>, Queue<T> {
 
     private final Array<T> _array;
 
@@ -153,17 +150,60 @@ public class LinkedList<T> implements List<T> {
     }
 
     @Override
-    public boolean addAll(Object... arguments) {
-        throw new RuntimeException("TODO Collection<T>.addAll");
-    }
-
-    @Override
     public T set(int index, T element) {
         rangeCheck(index);
 
         T oldValue = _array.$get(index);
         _array.$set(index, element);
         return oldValue;
+    }
+
+    @Override
+    public boolean offer(T e) {
+        return (boolean) add(e);
+    }
+
+    @Override
+    public T poll() {
+        if (_array.$length() == 0) {
+            return null;
+        }
+        return _array.splice(0, 1).$get(0);
+    }
+
+    public T getFirst() {
+        if (_array.$length() == 0) {
+            throw new js.lang.NoSuchElementException();
+        }
+        T f = _array.$get(0);
+        return f;
+    }
+
+    @Override
+    public T element() {
+        return getFirst();
+    }
+
+    @Override
+    public T peek() {
+        if (_array.$length() == 0) {
+            return null;
+        }
+        T f = _array.$get(0);
+        return f;
+    }
+
+    @Override
+    public boolean addAll(Collection<T> other) {
+        for (T t : other) {
+            _array.push(t);
+        }
+        return other.size() != 0;
+    }
+
+    @Override
+    public boolean addAllAt(int idx, Collection<T> other) {
+        throw new RuntimeException("TODO Collection<T>.addAllAt");
     }
 
 }

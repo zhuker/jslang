@@ -10,8 +10,8 @@ import js.io.PrintStream;
 
 public class System {
 
-    public static PrintStream out = new JSConsolePrintStream();
-    public static PrintStream err = new JSConsolePrintStream();
+    public final static PrintStream out = new JSConsolePrintStream();
+    public final static PrintStream err = new JSConsolePrintStream();
 
     @NeedsSpeedOptimization
     public static void arraycopy(Object src, int srcPos, Object dst, int dstPos, int len) {

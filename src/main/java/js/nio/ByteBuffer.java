@@ -1,13 +1,7 @@
 package js.nio;
 
 import static org.stjs.javascript.Global.console;
-import static org.stjs.javascript.JSGlobal.typeof;
 
-import org.stjs.javascript.Global;
-import org.stjs.javascript.JSGlobal;
-import org.stjs.javascript.JSObjectAdapter;
-
-import js.lang.IntentionalHack;
 import js.lang.NeedsSpeedOptimization;
 import js.lang.System;
 
@@ -30,39 +24,21 @@ public class ByteBuffer {
         this.cap = cap;
     }
 
-    public int position(int... arguments) {
-        if (arguments.length == 0) {
-            return getPosition();
-        } else if (arguments.length == 1) {
-            int newPosition = arguments[0];
-            if ((newPosition > lim) || (newPosition < 0))
-                throw new js.lang.IllegalArgumentException("wrong position");
-            pos = newPosition;
-            if (_mark > pos)
-                _mark = -1;
-            return illegalCast(this);
-        }
-        throw new RuntimeException("TODO IntBuffer.position");
-    }
-
-    private int getPosition() {
+    public int position() {
         return pos;
     }
 
-    @IntentionalHack
-    private int illegalCast(ByteBuffer intBuffer) {
-        Object o = intBuffer;
-        return (int) o;
-    }
-
-    @IntentionalHack
-    private byte illegalCastByte(ByteBuffer intBuffer) {
-        Object o = intBuffer;
-        return (byte) o;
+    public ByteBuffer setPosition(int newPosition) {
+        if ((newPosition > lim) || (newPosition < 0))
+            throw new js.lang.IllegalArgumentException("wrong position");
+        pos = newPosition;
+        if (_mark > pos)
+            _mark = -1;
+        return this;
     }
 
     public ByteBuffer duplicate() {
-        return new ByteBuffer(hb, this.markValue(), this.getPosition(), this.limit(), this.capacity(), offset);
+        return new ByteBuffer(hb, this.markValue(), this.position(), this.limit(), this.capacity(), offset);
     }
 
     final int markValue() { // package-private
@@ -79,28 +55,8 @@ public class ByteBuffer {
         return lim - pos;
     }
 
-    public byte get(Object... arguments) {
-        if (arguments.length == 0) {
-            return hb[ix(nextGetIndex())];
-        } else if (arguments.length == 1 && "number" == JSGlobal.typeof(arguments[0])) {
-            int i = (int) arguments[0];
-            return hb[ix(checkIndex(i))];
-        } else if (arguments.length == 1 && "object" == JSGlobal.typeof(arguments[0])) {
-            byte[] dst = (byte[]) arguments[0];
-            int length = dst.length;
-            checkBounds(offset, length, dst.length);
-            if (length > remaining())
-                throw new BufferUnderflowException();
-            int end = offset + length;
-            for (int i = offset; i < end; i++)
-                dst[i] = get();
-            return illegalCastByte(this);
-        }
-        Global.console.error("arguments", arguments);
-        Global.console.error("arguments0", arguments[0]);
-        Global.console.error("arguments0", JSGlobal.typeof(arguments[0]));
-        Global.console.error("arguments0", JSObjectAdapter.$constructor(arguments[0]));
-        throw new RuntimeException("TODO ByteBuffer.get " + arguments.length);
+    public byte get() {
+        return hb[ix(nextGetIndex())];
     }
 
     /**
@@ -111,8 +67,8 @@ public class ByteBuffer {
      * @return The current position value, before it is incremented
      */
     final int nextGetIndex() { // package-private
-        if (pos >= lim)
-            throw new BufferUnderflowException();
+        //        if (pos >= lim)
+        //            throw new BufferUnderflowException();
         return pos++;
     }
 
@@ -126,9 +82,15 @@ public class ByteBuffer {
      * {@link IndexOutOfBoundsException} if it is not smaller than the limit or
      * is smaller than zero.
      */
-    final int checkIndex(int i) { // package-private
+    final int checkIndex(int i) {
         if ((i < 0) || (i >= lim))
             throw new js.lang.IndexOutOfBoundsException("" + i);
+        return i;
+    }
+
+    final int checkIndex2(int i, int nb) {
+        if ((i < 0) || (nb > lim - i))
+            throw new js.lang.IndexOutOfBoundsException();
         return i;
     }
 
@@ -165,59 +127,50 @@ public class ByteBuffer {
     }
 
     public ByteBuffer slice() {
-        return new ByteBuffer(hb,
-                -1,
-                0,
-                this.remaining(),
-                this.remaining(),
-                this.getPosition() + offset);
+        return new ByteBuffer(hb, -1, 0, this.remaining(), this.remaining(), this.position() + offset);
     }
 
-    public int limit(int... arguments) {
-        if (arguments.length == 0) {
-            return lim;
-        } else {
-            int newLimit = arguments[0];
-            if ((newLimit > cap) || (newLimit < 0))
-                throw new js.lang.IllegalArgumentException("" + arguments[0]);
-            lim = newLimit;
-            if (pos > lim)
-                pos = lim;
-            if (_mark > lim)
-                _mark = -1;
-            return illegalCast(this);
-        }
+    public int limit() {
+        return lim;
     }
 
-    public ByteBuffer put(Object... arguments) {
-        if (arguments.length == 1 && "number" == typeof(arguments[0])) {
-            byte x = (byte) arguments[0];
-            hb[ix(nextPutIndex())] = x;
-        } else if (arguments.length == 1 && arguments[0] instanceof ByteBuffer) {
-            ByteBuffer src = (ByteBuffer) arguments[0];
-            ByteBuffer sb = (ByteBuffer) src;
-            int n = sb.remaining();
-            if (n > remaining())
-                throw new BufferOverflowException();
-            System.arraycopy(sb.hb, sb.ix(sb.position()), hb, ix(position()), n);
-            sb.position(sb.position() + n);
-            position(position() + n);
-        } else if (arguments.length == 1 && "object" == typeof(arguments[0])) {
-            byte[] src = (byte[]) arguments[0];
-            return put3(src, 0, src.length);
-        } else if (arguments.length == 3) {
-            byte[] src = (byte[]) arguments[0];
-            int off = (int) arguments[1];
-            int len = (int) arguments[2];
-            return put3(src, off, len);
-        } else {
-            console.error("arguments", arguments);
-            throw new RuntimeException("TODO ByteBuffer.put " + arguments.length);
-        }
+    public ByteBuffer setLimit(int newLimit) {
+        if ((newLimit > cap) || (newLimit < 0))
+            throw new js.lang.IllegalArgumentException(newLimit + ">" + cap);
+        lim = newLimit;
+        if (pos > lim)
+            pos = lim;
+        if (_mark > lim)
+            _mark = -1;
         return this;
     }
 
-    private ByteBuffer put3(byte[] src, int off, int len) {
+    public ByteBuffer put(byte b) {
+        hb[ix(nextPutIndex())] = b;
+        return this;
+    }
+
+    public ByteBuffer putAt(int index, byte b) {
+        hb[ix(checkIndex(index))] = b;
+        return this;
+    }
+
+    public final ByteBuffer putArr(byte[] src) {
+        return put3(src, 0, src.length);
+    }
+
+    public ByteBuffer putBuf(ByteBuffer src) {
+        ByteBuffer sb = src;
+        int n = sb.remaining();
+        if (n > remaining())
+            throw new BufferOverflowException();
+        System.arraycopy(sb.hb, sb.ix(sb.position()), hb, ix(position()), n);
+        sb.setPosition(sb.position() + n);
+        setPosition(position() + n);
+        return this;
+    }
+
+    public ByteBuffer put3(byte[] src, int off, int len) {
         checkBounds(off, len, src.length);
         if (len > remaining())
             throw new BufferOverflowException();
@@ -233,35 +186,42 @@ public class ByteBuffer {
         return pos++;
     }
 
-    public void mark() {
-        throw new RuntimeException("TODO mark");
+    public ByteBuffer mark() {
+        _mark = pos;
+        return this;
     }
 
-    public void reset() {
-        throw new RuntimeException("TODO reset");
+    public ByteBuffer reset() {
+        int m = _mark;
+        if (m < 0)
+            throw new js.lang.IllegalStateException();
+        pos = m;
+        return this;
     }
 
-    public ByteBuffer putLong(long l) {
-        console.error("ByteBuffer putLong");
-        throw new RuntimeException("TODO putLong");
+    public ByteBuffer putLong(long x) {
+        Bits.putLong(this, ix(_nextPutIndex(8)), x, bigEndian);
+        return this;
     }
 
     public long getLong() {
         throw new RuntimeException("TODO getLong");
     }
 
-    public void clear() {
-        throw new RuntimeException("TODO clear");
+    public ByteBuffer clear() {
+        pos = 0;
+        lim = cap;
+        _mark = -1;
+        return this;
     }
 
-    public Object order(ByteOrder... arguments) {
-        if (arguments.length == 0) {
-            return bigEndian ? ByteOrder.BIG_ENDIAN : ByteOrder.LITTLE_ENDIAN;
-        } else {
-            ByteOrder bo = arguments[0];
-            bigEndian = (bo == ByteOrder.BIG_ENDIAN);
-            return this;
-        }
+    public ByteOrder getOrder() {
+        return bigEndian ? ByteOrder.BIG_ENDIAN : ByteOrder.LITTLE_ENDIAN;
+    }
+
+    public ByteBuffer order(ByteOrder bo) {
+        bigEndian = (bo == ByteOrder.BIG_ENDIAN);
+        return this;
     }
 
     public int capacity() {
@@ -302,11 +262,12 @@ public class ByteBuffer {
         return true;
     }
 
-    public int getInt(Object... arguments) {
-        if (arguments.length == 0) {
-            return Bits.getInt(this, ix(_nextGetIndex(4)), bigEndian);
-        }
-        throw new RuntimeException("TODO ByteBuffer.getInt");
+    public int getInt() {
+        return Bits.getInt(this, ix(_nextGetIndex(4)), bigEndian);
+    }
+
+    public int getIntAt(int i) {
+        return Bits.getInt(this, ix(checkIndex2(i, 4)), bigEndian);
     }
 
     final int _nextGetIndex(int nb) { // package-private
@@ -340,13 +301,12 @@ public class ByteBuffer {
         }
     }
 
-    public short getShort(Object... arguments) {
-        if (arguments.length == 0) {
-            return Bits.getShort(this, ix(_nextGetIndex(2)), bigEndian);
-        }
-        // TODO Auto-generated method stub
-        console.error("arguments", arguments);
-        throw new RuntimeException("TODO ByteBuffer.getShort " + arguments.length);
+    public short getShort() {
+        return Bits.getShort(this, ix(_nextGetIndex(2)), bigEndian);
+    }
+
+    public short getShortAt(int idx) {
+        throw new RuntimeException("TODO ByteBuffer.getShortAt ");
     }
 
     byte _get(int i) { // package-private
@@ -356,4 +316,37 @@ public class ByteBuffer {
     void _put(int i, byte b) {
         hb[i] = b;
     }
+
+    public byte getAt(int idx) {
+        return hb[ix(checkIndex(idx))];
+    }
+
+    public ByteBuffer getBuf(byte[] dst) {
+        int length = dst.length;
+        checkBounds(offset, length, dst.length);
+        if (length > remaining())
+            throw new BufferUnderflowException();
+        int end = offset + length;
+        for (int i = offset; i < end; i++)
+            dst[i] = get();
+        return this;
+    }
+
+    public void getBuf3(byte[] b, int off, int toRead) {
+        throw new RuntimeException("TODO ByteBuffer.getBuf3");
+    }
+
+    public static ByteBuffer allocateDirect(int capacity) {
+        return new ByteBuffer(new byte[capacity], -1, 0, capacity, capacity, 0);
+    }
+
+    public boolean isDirect() {
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return "ByteBuffer [pos=" + pos + ", lim=" + lim + ", cap=" + cap + "]";
+    }
+
 }

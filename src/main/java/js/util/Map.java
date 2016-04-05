@@ -14,7 +14,7 @@ public interface Map<K, V> {
 
 	int size();
 
-	void put(K k, V v);
+    V put(K key, V value);
 
 	boolean containsKey(K k);
 

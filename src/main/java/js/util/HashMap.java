@@ -38,9 +38,11 @@ public class HashMap<K, V> implements Map<K, V> {
     }
 
     @Override
-    public void put(K k, V v) {
+    public V put(K k, V v) {
         String key = makeKey(k);
+        V old = _map.$get(key);
         _map.$put(key, v);
+        return old;
     }
 
     private String makeKey(K k) {
@@ -71,7 +73,8 @@ public class HashMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean containsKey(K k) {
-        throw new RuntimeException("TODO Map<K,V>.containsKey");
+        V v = _map.$get(makeKey(k));
+        return v != null;
     }
 
     @Override
