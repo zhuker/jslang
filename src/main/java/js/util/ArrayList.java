@@ -9,6 +9,7 @@ import java.util.function.Consumer;
 import org.stjs.javascript.Array;
 import org.stjs.javascript.Global;
 import org.stjs.javascript.JSFunctionAdapter;
+import org.stjs.javascript.functions.Callback1;
 
 public class ArrayList<T> implements List<T> {
 
@@ -139,10 +140,11 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public void forEach(Consumer<? super T> action) {
-        int len = size();
-        for (int i = 0; i < len; i++) {
-            call(action, action, _array.$get(i));
-        }
+        _array.$forEach((Callback1<T>) action);
+        //        int len = size();
+        //        for (int i = 0; i < len; i++) {
+        //            call(action, action, _array.$get(i));
+        //        }
     }
 
     @Override

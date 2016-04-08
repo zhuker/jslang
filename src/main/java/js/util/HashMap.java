@@ -4,13 +4,9 @@ import static org.stjs.javascript.Global.console;
 import static org.stjs.javascript.JSCollections.$map;
 import static org.stjs.javascript.JSObjectAdapter.$get;
 
-import org.stjs.javascript.Global;
 import org.stjs.javascript.JSFunctionAdapter;
 import org.stjs.javascript.JSGlobal;
-import org.stjs.javascript.JSObjectAdapter;
-import org.stjs.javascript.functions.Callback0;
 import org.stjs.javascript.functions.Function0;
-import org.stjs.javascript.functions.Function1;
 
 import js.lang.IllegalArgumentException;
 
@@ -70,7 +66,6 @@ public class HashMap<K, V> implements Map<K, V> {
         throw new IllegalArgumentException("supported key types: string, number, Function.name, anything.toString()");
     }
 
-
     @Override
     public boolean containsKey(K k) {
         V v = _map.$get(makeKey(k));
@@ -79,7 +74,11 @@ public class HashMap<K, V> implements Map<K, V> {
 
     @Override
     public Collection<V> values() {
-        throw new RuntimeException("TODO Map<K,V>.values");
+        List<V> vals = new ArrayList<>();
+        for (String key : _map) {
+            vals.add(_map.$get(key));
+        }
+        return vals;
     }
 
     @Override

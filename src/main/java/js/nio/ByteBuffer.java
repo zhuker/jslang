@@ -2,8 +2,11 @@ package js.nio;
 
 import static org.stjs.javascript.Global.console;
 
+import org.stjs.javascript.typed.ArrayBuffer;
+import org.stjs.javascript.typed.DataView;
+import org.stjs.javascript.typed.Int8Array;
+
 import js.lang.NeedsSpeedOptimization;
-import js.lang.System;
 
 @NeedsSpeedOptimization
 public class ByteBuffer {
@@ -14,9 +17,15 @@ public class ByteBuffer {
     private int cap;
     private int _mark;
     boolean bigEndian = true;
+    boolean littleEndian = false;
+    private DataView data;
+    private Int8Array arr;
 
     protected ByteBuffer(byte[] int8array, int mark, int pos, int lim, int cap, int off) {
         this.hb = int8array;
+        arr = (Int8Array) (Object) hb;
+        ArrayBuffer buf = arr.buffer;
+        this.data = new DataView(buf, off, cap);
         this.offset = off;
         this._mark = -1;
         this.pos = pos;
@@ -160,12 +169,17 @@ public class ByteBuffer {
     }
 
     public ByteBuffer putBuf(ByteBuffer src) {
-        ByteBuffer sb = src;
-        int n = sb.remaining();
+        int n = src.remaining();
         if (n > remaining())
             throw new BufferOverflowException();
-        System.arraycopy(sb.hb, sb.ix(sb.position()), hb, ix(position()), n);
-        sb.setPosition(sb.position() + n);
+        Int8Array _dst = arr;
+        Int8Array _src = src.arr;
+        int dstIdx = ix(position());
+        int srcIdx = src.ix(src.position());
+
+        _dst.subarray(dstIdx, dstIdx + n).set(_src.subarray(srcIdx, srcIdx + n), 0);
+        
+        src.setPosition(src.position() + n);
         setPosition(position() + n);
         return this;
     }
@@ -180,7 +194,7 @@ public class ByteBuffer {
         return this;
     }
 
-    final int nextPutIndex() { // package-private
+    final int nextPutIndex() {
         if (pos >= lim)
             throw new js.nio.BufferOverflowException();
         return pos++;
@@ -221,6 +235,7 @@ public class ByteBuffer {
 
     public ByteBuffer order(ByteOrder bo) {
         bigEndian = (bo == ByteOrder.BIG_ENDIAN);
+        littleEndian = !bigEndian;
         return this;
     }
 
@@ -263,11 +278,11 @@ public class ByteBuffer {
     }
 
     public int getInt() {
-        return Bits.getInt(this, ix(_nextGetIndex(4)), bigEndian);
+        return data.getInt32(_nextGetIndex(4), littleEndian);
     }
 
     public int getIntAt(int i) {
-        return Bits.getInt(this, ix(checkIndex2(i, 4)), bigEndian);
+        return data.getInt32(checkIndex2(i, 4), littleEndian);
     }
 
     final int _nextGetIndex(int nb) { // package-private
