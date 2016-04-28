@@ -104,6 +104,7 @@ public class FileChannel implements ReadableByteChannel {
         int writen = fs.writeSync(fd, new Buffer(arr.buffer), position, len, fpos);
         if (writen >= 0) {
             fpos += writen;
+            buf.setPosition(position+writen);
         }
 //        console.log("write", nodebuf, position, len, fpos);
 //        console.log("writen", writen);
