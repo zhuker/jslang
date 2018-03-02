@@ -97,7 +97,7 @@
 	<dependency>
 		<groupId>org.st-js</groupId>
 		<artifactId>shared</artifactId>
-		<version>3.3.1-SNAPSHOT</version>
+		<version>${stjs.version}</version>
 	</dependency>
 	<dependency>
 		<groupId>org.st-js.bridge</groupId>
