@@ -1,5 +1,7 @@
 package js.lang;
 
+import js.util.Map;
+
 public class Thread {
 
     private Runnable r;
@@ -27,6 +29,10 @@ public class Thread {
 
     public js.lang.StackTraceElement[] getStackTrace() {
         return FakeStackTrace;
+    }
+
+    public js.lang.ClassLoader getContextClassLoader() {
+        throw new RuntimeException("TODO Thread.getContextClassLoader");
     }
 
 }

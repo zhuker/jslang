@@ -9,4 +9,8 @@ public class ImageIO {
         throw new RuntimeException("TODO ImageIO.write");
     }
 
+    public static BufferedImage read(File file) {
+        throw new RuntimeException("TODO ImageIO.read");
+    }
+
 }

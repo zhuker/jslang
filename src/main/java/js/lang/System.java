@@ -5,14 +5,25 @@ import static org.stjs.javascript.JSCollections.$map;
 import org.stjs.javascript.Array;
 import org.stjs.javascript.Date;
 import org.stjs.javascript.Map;
+import org.stjs.javascript.annotation.STJSBridge;
+import org.stjs.javascript.annotation.ServerSide;
+import org.stjs.javascript.typed.TypedArray;
 
+import js.io.InputStream;
 import js.io.PrintStream;
 
 public class System {
 
     public final static PrintStream out = new JSConsolePrintStream();
     public final static PrintStream err = new JSConsolePrintStream();
+//    public final static InputStream in = null;
 
+//    public static void arraycopy(Object src, int srcPos, Object dst, int dstPos, int len) {
+//        TypedArray _src = (TypedArray) src;
+//        TypedArray _dst = (TypedArray) dst;
+//        _dst.set(_src.subarray(srcPos, srcPos+len), dstPos);
+//    }
+    
     @NeedsSpeedOptimization
     public static void arraycopy(Object src, int srcPos, Object dst, int dstPos, int len) {
         Array _src = (Array) src;
@@ -23,6 +34,7 @@ public class System {
             _dst.$set(j++, _src.$get(i));
         }
     }
+
 
     public static void exit(int i) {
         throw new RuntimeException("TODO");
@@ -36,7 +48,7 @@ public class System {
 
     @NeedsSpeedOptimization
     public static long currentTimeMillis() {
-        return (long) new Date().getTime();
+        return (long) Date.now();
     }
 
     public static int identityHashCode(Object obj) {

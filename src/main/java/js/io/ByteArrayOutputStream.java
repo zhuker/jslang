@@ -17,4 +17,8 @@ public class ByteArrayOutputStream extends OutputStream {
 		throw new RuntimeException("TODO");
 	}
 
+    public int size() {
+        throw new RuntimeException("TODO ByteArrayOutputStream.size");
+    }
+
 }

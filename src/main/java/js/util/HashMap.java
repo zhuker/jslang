@@ -92,12 +92,17 @@ public class HashMap<K, V> implements Map<K, V> {
     }
 
     @Override
-    public void remove(K k) {
+    public V remove(K k) {
         throw new RuntimeException("TODO Map<K,V>.remove");
     }
 
     @Override
     public Set<K> keySet() {
         throw new RuntimeException("TODO Map<K,V>.keySet");
+    }
+
+    @Override
+    public boolean isEmpty() {
+        throw new RuntimeException("TODO Map<K,V>.isEmpty");
     }
 }

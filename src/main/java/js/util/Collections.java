@@ -6,6 +6,8 @@ import js.util.ListIterator;
 
 import js.util.List;
 
+import org.stjs.javascript.annotation.Native;
+
 import js.lang.NeedsSpeedOptimization;
 import js.util.ArrayList;
 
@@ -19,6 +21,11 @@ public class Collections {
         return list;
     }
 
+    @Native
+    public static <T> void sort(List<T> list) {
+    }
+    
+    @Native
     public static <T> void sort(List<T> list, Comparator<T> comparator) {
         Object[] a = list.toArray(new Object[0]);
         Arrays.sort(a, comparator);
@@ -33,6 +40,10 @@ public class Collections {
     @NeedsSpeedOptimization
     public static <T> List<T> emptyList() {
         return new ArrayList<T>();
+    }
+
+    public static <T> List<T> unmodifiableList(List<T> tracks) {
+        throw new RuntimeException("TODO Collections.unmodifiableList");
     }
 
 }

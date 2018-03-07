@@ -2,6 +2,8 @@ package js.util;
 
 import java.util.Iterator;
 
+import org.stjs.javascript.annotation.Native;
+
 public interface Collection<E> extends Iterable<E> {
     int size();
 

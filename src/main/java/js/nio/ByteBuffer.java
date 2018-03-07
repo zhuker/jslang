@@ -2,6 +2,8 @@ package js.nio;
 
 import static org.stjs.javascript.Global.console;
 
+import org.stjs.javascript.annotation.Native;
+import org.stjs.javascript.annotation.STJSBridge;
 import org.stjs.javascript.typed.ArrayBuffer;
 import org.stjs.javascript.typed.DataView;
 import org.stjs.javascript.typed.Int8Array;
@@ -178,7 +180,7 @@ public class ByteBuffer {
         int srcIdx = src.ix(src.position());
 
         _dst.subarray(dstIdx, dstIdx + n).set(_src.subarray(srcIdx, srcIdx + n), 0);
-        
+
         src.setPosition(src.position() + n);
         setPosition(position() + n);
         return this;
@@ -310,10 +312,9 @@ public class ByteBuffer {
             short x = (short) arguments[0];
             Bits.putShort(this, ix(_nextPutIndex(2)), x, bigEndian);
             return this;
-        } else {
-            console.error("TODO putShort", arguments);
-            throw new RuntimeException("TODO putShort");
         }
+        console.error("TODO putShort", arguments);
+        throw new RuntimeException("TODO putShort");
     }
 
     public short getShort() {
@@ -347,7 +348,7 @@ public class ByteBuffer {
         return this;
     }
 
-    public void getBuf3(byte[] b, int off, int toRead) {
+    public ByteBuffer getBuf3(byte[] b, int off, int toRead) {
         throw new RuntimeException("TODO ByteBuffer.getBuf3");
     }
 
@@ -363,5 +364,4 @@ public class ByteBuffer {
     public String toString() {
         return "ByteBuffer [pos=" + pos + ", lim=" + lim + ", cap=" + cap + "]";
     }
-
 }

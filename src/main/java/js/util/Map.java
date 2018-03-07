@@ -24,8 +24,10 @@ public interface Map<K, V> {
 
 	void clear();
 
-	void remove(K k);
+	V remove(K k);
 
 	Set<K> keySet();
+
+    boolean isEmpty();
 
 }

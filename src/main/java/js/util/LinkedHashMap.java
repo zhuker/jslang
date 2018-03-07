@@ -1,6 +1,16 @@
 package js.util;
 
+import org.stjs.javascript.Array;
+import org.stjs.javascript.JSCollections;
+
 public class LinkedHashMap<K, V> implements Map<K, V> {
+    private org.stjs.javascript.Map<String, V> map;
+    private Array<String> keys;
+
+    public LinkedHashMap() {
+        map = JSCollections.$map();
+        keys = JSCollections.$array();
+    }
 
     @Override
     public Set<js.util.Map.Entry<K, V>> entrySet() {
@@ -21,9 +31,13 @@ public class LinkedHashMap<K, V> implements Map<K, V> {
 
     @Override
     public V put(K k, V v) {
-        // TODO Auto-generated method stub
-        throw new RuntimeException("TODO");
-
+        String key = "" + k;
+        V prev = map.$get(key);
+        if (prev == null) {
+            keys.push(key);
+        }
+        map.$put(key, v);
+        return prev;
     }
 
     @Override
@@ -53,7 +67,7 @@ public class LinkedHashMap<K, V> implements Map<K, V> {
     }
 
     @Override
-    public void remove(K k) {
+    public V remove(K k) {
         // TODO Auto-generated method stub
         throw new RuntimeException("TODO");
 
@@ -63,6 +77,11 @@ public class LinkedHashMap<K, V> implements Map<K, V> {
     public Set<K> keySet() {
         // TODO Auto-generated method stub
         throw new RuntimeException("TODO");
+    }
+
+    @Override
+    public boolean isEmpty() {
+        throw new RuntimeException("TODO Map<K,V>.isEmpty");
     }
 
 }

@@ -1,5 +1,7 @@
 package js.lang;
 
+import org.stjs.javascript.annotation.Native;
+
 public class StringBuilder {
 
     private String str = "";
@@ -11,6 +13,12 @@ public class StringBuilder {
         }
     }
 
+    public StringBuilder append(Object o, int start, int end) {
+        str += o;
+        return this;
+    }
+    
+    @Native
     public StringBuilder append(Object o) {
         str += o;
         return this;
