@@ -74,7 +74,6 @@ public class MockFileChannel extends FileChannel {
     }
 
     public void close() {
-        throw new RuntimeException("TODO");
     }
 
     public long size() {

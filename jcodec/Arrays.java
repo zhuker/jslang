@@ -132,11 +132,11 @@ public class Arrays {
     }
 
     public static <T> T copyOf(T original, int newLength) {
-        throw new RuntimeException("TODO Arrays.copyOf");
+        return (T) ((Array) original).slice(0, newLength);
     }
 
     public static <T> T copyOfRange(T original, int from, int to) {
-        throw new RuntimeException("TODO Arrays.copyOfRange");
+        return (T) ((Array) original).slice(from, to);
     }
 
     public static String arrayToString(Object arr) {
