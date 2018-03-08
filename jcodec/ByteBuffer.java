@@ -39,10 +39,6 @@ public class ByteBuffer {
         return pos;
     }
 
-    public ByteBuffer position(int newPosition) {
-        return setPosition(newPosition);
-    }
-
     public ByteBuffer setPosition(int newPosition) {
         if ((newPosition > lim) || (newPosition < 0))
             throw new js.lang.IllegalArgumentException("wrong position");
@@ -70,9 +66,6 @@ public class ByteBuffer {
         return lim - pos;
     }
 
-    public byte get(int idx) {
-        return getAt(idx);
-    }
     public byte get() {
         return hb[ix(nextGetIndex())];
     }
@@ -372,39 +365,59 @@ public class ByteBuffer {
         return "ByteBuffer [pos=" + pos + ", lim=" + lim + ", cap=" + cap + "]";
     }
 
+    //inline this method
     public ByteBuffer put(byte[] src) {
         return putArr(src);
     }
 
+    //inline this method
     public ByteBuffer put(ByteBuffer src) {
         return putBuf(src);
     }
 
+    //inline this method
     public ByteBuffer get(byte[] b, int off, int toRead) {
         return getBuf3(b, off, toRead);
     }
 
+    //inline this method
     public ByteBuffer get(byte[] dst) {
         return getBuf(dst);
     }
 
+    //inline this method
     public int getInt(int i) {
         return getIntAt(i);
     }
 
+    //inline this method
     public ByteOrder order() {
         return getOrder();
     }
 
+    //inline this method
     public ByteBuffer put(int i, byte b) {
         return putAt(i, b);
     }
 
+    //inline this method
     public ByteBuffer put(byte[] src, int off, int len) {
         return put3(src, off, len);
     }
     
+    //inline this method
     public ByteBuffer limit(int newLimit) {
         return setLimit(newLimit);
     }
+    
+    //inline this method
+    public byte get(int idx) {
+        return getAt(idx);
+    }
+
+    //inline this method
+    public ByteBuffer position(int newPosition) {
+        return setPosition(newPosition);
+    }
+
 }

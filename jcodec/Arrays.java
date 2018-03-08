@@ -15,6 +15,11 @@ import org.stjs.javascript.typed.Int32Array;
 
 public class Arrays {
 
+    //inline this method
+    public static void fill(Object arr, int fromIndex, int toIndex, Object val) {
+        fillRange(arr, fromIndex, toIndex, val);
+    }
+
     /**
      * Returns <tt>true</tt> if the two specified arrays of ints are
      * <i>equal</i> to one another. Two arrays are considered equal if both
@@ -137,11 +142,6 @@ public class Arrays {
     public static String arrayToString(Object arr) {
         throw new RuntimeException("TODO Arrays.toString");
     }
-
-    public static void fill(Object arr, int fromIndex, int toIndex, Object val) {
-        fillRange(arr, fromIndex, toIndex, val);
-    }
-
 
 
 }
