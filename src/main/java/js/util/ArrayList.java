@@ -21,7 +21,8 @@ public class ArrayList<T> implements List<T> {
         } else if (arguments.length == 1 && "number" == typeof(arguments[0])) {
             _array = new Array<>((int) arguments[0]);
         } else {
-            throw new RuntimeException("TODO new ArrayList(collection)");
+            Collection other = (Collection) arguments[0];
+            _array = (Array<T>) (Object) other.toArray(new Object[other.size()]);
         }
     }
 
@@ -93,14 +94,29 @@ public class ArrayList<T> implements List<T> {
         return a;
     }
 
+    /**
+     * Inserts the specified element at the specified position in this
+     * list. Shifts the element currently at that position (if any) and
+     * any subsequent elements to the right (adds one to their indices).
+     *
+     * @param index index at which the specified element is to be inserted
+     * @param element element to be inserted
+     * @throws IndexOutOfBoundsException {@inheritDoc}
+     */
+    public void addAt(int index, T element) {
+        _array.splice(index, 0, element);
+    }
+
     @Override
     public Object add(Object... arguments) {
         if (arguments.length == 1) {
             _array.push((T) arguments[0]);
             return true;
-        } else {
-            throw new RuntimeException("TODO Collection<T>.add");
         }
+        int index = (int) arguments[0] | 0;
+        T val = (T) arguments[1];
+        this.addAt(index, val);
+        return true;
     }
 
     @Override
