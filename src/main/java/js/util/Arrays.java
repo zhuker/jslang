@@ -8,6 +8,7 @@ import js.util.DualPivotQuicksort;
 
 import org.stjs.javascript.Array;
 import org.stjs.javascript.Global;
+import org.stjs.javascript.JSFunctionAdapter;
 import org.stjs.javascript.JSObjectAdapter;
 import org.stjs.javascript.SortFunction;
 import org.stjs.javascript.annotation.Native;
@@ -127,7 +128,17 @@ public class Arrays {
     }
 
     public static <T> T copyOf(T original, int newLength) {
-        return (T) ((Array) original).slice(0, newLength);
+        Array orig = (Array) original;
+        if (orig.$length() >= newLength) {
+            return (T) (orig).slice(0, newLength);
+        }
+        if ((Boolean) JSObjectAdapter.$js("original.set")) { //is typed array
+            Object $constructor2 = JSObjectAdapter.$constructor(original);
+            Object dst = JSObjectAdapter.$js("new original.constructor(newLength)");
+            JSObjectAdapter.$js("dst.set(original.slice(0, newLength), 0)");
+            return (T) dst;
+        }
+        return (T) orig.slice(0).concat(new Array(newLength - orig.$length()));
     }
 
     public static <T> T copyOfRange(T original, int from, int to) {

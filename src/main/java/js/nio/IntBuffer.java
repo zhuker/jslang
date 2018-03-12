@@ -1,5 +1,7 @@
 package js.nio;
 
+import static org.stjs.javascript.Global.console;
+
 import org.stjs.javascript.Global;
 import org.stjs.javascript.JSGlobal;
 import org.stjs.javascript.typed.Int32Array;
@@ -15,25 +17,25 @@ public class IntBuffer {
     private int cap;
     private int _mark;
 
-    protected IntBuffer(Int32Array int32array, int off, int pos, int lim, int cap) {
+    protected IntBuffer(Int32Array int32array, int mark, int pos, int lim, int cap, int off) {
         this.hb = int32array;
         this.offset = off;
-        this._mark = -1;
+        this._mark = mark;
         this.pos = pos;
         this.lim = lim;
         this.cap = cap;
     }
 
     public static IntBuffer wrap(int[] orig) {
-        throw new RuntimeException("TODO");
+        return new IntBuffer((Int32Array) (Object) orig, -1, 0, orig.length, orig.length, 0);
     }
 
     public static IntBuffer allocate(int length) {
-        return new IntBuffer(new Int32Array(length), 0, 0, length, length);
+        return new IntBuffer(new Int32Array(length), -1, 0, length, length, 0);
     }
 
     public int[] array() {
-        throw new RuntimeException("TODO IntBuffer.array");
+        return (int[]) (Object) hb;
     }
 
     public int capacity() {
@@ -45,7 +47,15 @@ public class IntBuffer {
     }
 
     public IntBuffer duplicate() {
-        throw new RuntimeException("TODO IntBuffer.duplicate");
+        return new IntBuffer(hb, this.markValue(), this.position(), this.limit(), this.capacity(), offset);
+    }
+
+    public int limit() {
+        return lim;
+    }
+
+    final int markValue() { // package-private
+        return _mark;
     }
 
     public int get(Object... arguments) {
@@ -68,9 +78,18 @@ public class IntBuffer {
     }
 
     public Object put(Object... arguments) {
-        if (arguments.length == 1 && "number" == JSGlobal.typeof(arguments[0])) {
-            int x = (int) arguments[0];
-            hb.$set(ix(nextPutIndex()), x);
+        switch (arguments.length) {
+        case 1:
+            if ("number" == JSGlobal.typeof(arguments[0])) {
+                int x = (int) arguments[0];
+                hb.$set(ix(nextPutIndex()), x);
+                return this;
+            }
+            break;
+        case 2:
+            int index = (int) arguments[0];
+            int val = (int) arguments[1];
+            hb.$set(ix(checkIndex(index)), val);
             return this;
         }
         Global.console.error("arguments", arguments);
@@ -112,8 +131,12 @@ public class IntBuffer {
         throw new RuntimeException("TODO IntBuffer.hasRemaining");
     }
 
+    public final int remaining() {
+        return lim - pos;
+    }
+
     public IntBuffer slice() {
-        throw new RuntimeException("TODO IntBuffer.slice");
+        return new IntBuffer(hb, -1, 0, this.remaining(), this.remaining(), this.position() + offset);
     }
 
 }

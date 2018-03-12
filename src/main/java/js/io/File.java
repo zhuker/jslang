@@ -3,6 +3,7 @@ package js.io;
 import static org.stjs.javascript.Global.console;
 
 import org.stjs.javascript.Array;
+import org.stjs.javascript.JSObjectAdapter;
 
 import js.node.FS;
 import js.node.FS.Stats;
@@ -40,8 +41,10 @@ public class File {
         return path;
     }
 
-    public static File createTempFile(String string, String string2) {
-        throw new RuntimeException("TODO");
+    public static File createTempFile(String prefix, String suffix) {
+        String path = "/tmp/" + prefix + Math.random() + suffix;
+        fs.writeFileSync(path, "");
+        return new File(path);
     }
 
     public String getAbsolutePath() {
@@ -53,23 +56,33 @@ public class File {
     }
 
     public String getName() {
-        throw new RuntimeException("TODO");
+        int lastIndexOf = path.lastIndexOf("/");
+        if (lastIndexOf >= 0) {
+            return path.substring(lastIndexOf + 1);
+        }
+        return path;
     }
 
     public boolean exists() {
-        throw new RuntimeException("TODO");
+        try {
+            fs.statSync(path);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public File getParentFile() {
-        throw new RuntimeException("TODO");
+        int lastIndexOf = path.lastIndexOf("/");
+        return new File(path.substring(0, lastIndexOf));
     }
 
-    public void renameTo(File src) {
-        throw new RuntimeException("TODO");
+    public void renameTo(File dst) {
+        JSObjectAdapter.$js("File.fs.renameSync(this.path, dst.path)");
     }
 
     public void deleteOnExit() {
-        throw new RuntimeException("TODO");
+        js.lang.System.err.println("TODO: deleteOnExit " + path);
     }
 
     public File[] listFiles(Object... arguments) {
@@ -86,8 +99,7 @@ public class File {
     }
 
     public String getCanonicalPath() {
-        // TODO Auto-generated method stub
-        throw new RuntimeException("TODO");
+        return JSObjectAdapter.$js("File.fs.realpathSync(this.path)");
     }
 
     public void $delete() {

@@ -18,6 +18,10 @@ public class FileChannel implements ReadableByteChannel {
 
     private int fd;
 
+    long fpos = 0;
+
+    private boolean closed = false;
+
     public static class MapMode {
 
         /**
@@ -47,11 +51,10 @@ public class FileChannel implements ReadableByteChannel {
         this.fd = fd;
     }
 
+    @Override
     public boolean isOpen() {
-        throw new RuntimeException("TODO");
+        return !closed;
     }
-
-    long fpos = 0;
 
     public long position(Object... arguments) {
         switch (arguments.length) {
@@ -66,13 +69,22 @@ public class FileChannel implements ReadableByteChannel {
     }
 
     @IntentionalHack
-    protected long illegalCast(FileChannel x) {
+    protected static long illegalCast(FileChannel x) {
         Object o = x;
         return (long) o;
     }
 
+    @Override
     public int read(ByteBuffer dst) {
-        throw new RuntimeException("TODO FileChannel.read " + dst);
+        Buffer buffer = (Buffer) (Object) dst.array();
+        int start = dst.arrayOffset() + dst.position();
+        int remaining = dst.remaining();
+        int readSync = fs.readSync(fd, buffer, start, remaining, fpos);
+        if (readSync > 0) {
+            fpos += readSync;
+            dst.setPosition(dst.position() + readSync);
+        }
+        return readSync == 0 ? -1 : readSync;
     }
 
     private static final ByteBuffer _read(ByteBuffer buffer, int count) {
@@ -83,9 +95,11 @@ public class FileChannel implements ReadableByteChannel {
         return slice;
     }
 
+    @Override
     public void close() {
-        console.log("close", fd);
+        console.log("FileChannel close", fd);
         fs.closeSync(fd);
+        this.closed = true;
     }
 
     public long size() {
@@ -104,10 +118,10 @@ public class FileChannel implements ReadableByteChannel {
         int writen = fs.writeSync(fd, new Buffer(arr.buffer), position, len, fpos);
         if (writen >= 0) {
             fpos += writen;
-            buf.setPosition(position+writen);
+            buf.setPosition(position + writen);
         }
-//        console.log("write", nodebuf, position, len, fpos);
-//        console.log("writen", writen);
+        //        console.log("write", nodebuf, position, len, fpos);
+        //        console.log("writen", writen);
         return writen;
     }
 

@@ -6,15 +6,13 @@ public class Random {
 
     @Native
     public Random() {
-        throw new RuntimeException("TODO Random");
     }
 
     public Random(int i) {
-        throw new RuntimeException("TODO Random");
     }
 
     public long nextLong() {
-        throw new RuntimeException("TODO");
+        throw new RuntimeException("TODO Random.nextLong");
     }
 
     public int nextInt(int i) {
@@ -22,7 +20,9 @@ public class Random {
     }
 
     public void nextBytes(byte[] dst) {
-        throw new RuntimeException("TODO Random.nextBytes");
+        for (int i = 0; i < dst.length; i++) {
+            dst[i] = (byte) (Math.random() * 255);
+        }
     }
 
 }

@@ -1,23 +1,38 @@
 package js.io;
 
+import static org.stjs.javascript.Global.console;
+
+import js.io.FileNotFoundException;
+
+import org.stjs.javascript.JSGlobal;
 import org.stjs.javascript.typed.ArrayBuffer;
 import org.stjs.javascript.typed.Int8Array;
 
 import js.nio.channels.FileChannel;
-import js.nio.channels.MockFileChannel;
 import js.node.FS;
 import js.node.NodeJS;
 
 public class FileInputStream extends InputStream {
     private final static FS fs = NodeJS.require("fs");
-    private Int8Array arr;
     private ByteArrayInputStream bais;
+    private int fd;
+    private FileChannel channel;
 
     public FileInputStream(Object... arguments) throws FileNotFoundException {
         if (arguments.length == 1) {
-            File file = (File) arguments[0];
-            ArrayBuffer buffer = fs.readFileSync(file.getPath());
-            arr = new Int8Array(buffer);
+            String path = null;
+            String mode = "r";
+            if (JSGlobal.typeof(arguments[0]) == "string") {
+                //    public FileInputStream(String name) throws FileNotFoundException {
+                path = (String) arguments[0];
+            } else {
+                //    public FileInputStream(File file) throws FileNotFoundException {
+                path = ((File) arguments[0]).getPath();
+            }
+            js.lang.System.err.println("FileInputStream open " + path + " " + mode);
+            this.fd = fs.openSync(path, mode);
+            ArrayBuffer buffer = fs.readFileSync(path);
+            Int8Array arr = new Int8Array(buffer);
             bais = new ByteArrayInputStream(arr);
         } else {
             throw new RuntimeException("TODO FileInputStream.init");
@@ -57,11 +72,16 @@ public class FileInputStream extends InputStream {
     }
 
     public FileChannel getChannel() {
-        return new MockFileChannel(arr);
+        if (channel == null) {
+            channel = new FileChannel(fd);
+        }
+        return channel;
     }
 
     @Override
     public void close() throws IOException {
+        console.log("FileInputStream close", fd);
+        fs.closeSync(fd);
     }
 
     public int available() {

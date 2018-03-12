@@ -39,4 +39,8 @@ public abstract class InputStream implements Closeable {
         throw new RuntimeException("TODO");
     }
 
+    public int available() {
+        return 0;
+    }
+
 }

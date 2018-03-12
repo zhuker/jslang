@@ -2,8 +2,11 @@ package js.nio;
 
 import static org.stjs.javascript.Global.console;
 
-import org.stjs.javascript.annotation.Native;
-import org.stjs.javascript.annotation.STJSBridge;
+import org.stjs.javascript.JSCollections;
+
+import js.nio.BufferUnderflowException;
+
+import org.stjs.javascript.JSObjectAdapter;
 import org.stjs.javascript.typed.ArrayBuffer;
 import org.stjs.javascript.typed.DataView;
 import org.stjs.javascript.typed.Int8Array;
@@ -29,7 +32,7 @@ public class ByteBuffer {
         ArrayBuffer buf = arr.buffer;
         this.data = new DataView(buf, off, cap);
         this.offset = off;
-        this._mark = -1;
+        this._mark = mark;
         this.pos = pos;
         this.lim = lim;
         this.cap = cap;
@@ -41,7 +44,8 @@ public class ByteBuffer {
 
     public ByteBuffer setPosition(int newPosition) {
         if ((newPosition > lim) || (newPosition < 0))
-            throw new js.lang.IllegalArgumentException("wrong position");
+            throw new js.lang.IllegalArgumentException(
+                    "wrong position " + newPosition + " lim: " + lim + " pos: " + pos);
         pos = newPosition;
         if (_mark > pos)
             _mark = -1;
@@ -67,20 +71,7 @@ public class ByteBuffer {
     }
 
     public byte get() {
-        return hb[ix(nextGetIndex())];
-    }
-
-    /**
-     * Checks the current position against the limit, throwing a
-     * {@link BufferUnderflowException} if it is not smaller than the limit, and
-     * then increments the position.
-     *
-     * @return The current position value, before it is incremented
-     */
-    final int nextGetIndex() { // package-private
-        //        if (pos >= lim)
-        //            throw new BufferUnderflowException();
-        return pos++;
+        return hb[ix(nextGetIndex(1))];
     }
 
     static void checkBounds(int off, int len, int size) { // package-private
@@ -221,7 +212,14 @@ public class ByteBuffer {
     }
 
     public long getLong() {
-        throw new RuntimeException("TODO getLong");
+        long hi = data.getUint32(nextGetIndex(4), littleEndian);
+        long lo = data.getUint32(nextGetIndex(4), littleEndian);
+        if (littleEndian) {
+            long tmp = lo;
+            lo = hi;
+            hi = tmp;
+        }
+        return hi * 0x7fffffff + lo;
     }
 
     public ByteBuffer clear() {
@@ -254,10 +252,15 @@ public class ByteBuffer {
     }
 
     public static ByteBuffer wrap(Object... arguments) {
-        if (arguments.length == 1) {
-            byte[] buf = (byte[]) arguments[0];
+        byte[] buf = (byte[]) arguments[0];
+        switch (arguments.length) {
+        case 1:
             return new ByteBuffer(buf, -1, 0, buf.length, buf.length, 0);
-        } else {
+        case 3:
+            int offset = (int) arguments[1];
+            int length = (int) arguments[2];
+            return new ByteBuffer(buf, -1, 0, length, length, offset);
+        default:
             console.error("arguments", arguments);
             throw new RuntimeException("TODO ByteBuffer.wrap " + arguments.length);
         }
@@ -268,7 +271,7 @@ public class ByteBuffer {
     }
 
     public float getFloat() {
-        throw new RuntimeException("TODO getFloat");
+        return JSObjectAdapter.$js("this.data.getFloat32(this.nextGetIndex(4), this.littleEndian)");
     }
 
     public int arrayOffset() {
@@ -280,16 +283,16 @@ public class ByteBuffer {
     }
 
     public int getInt() {
-        return data.getInt32(_nextGetIndex(4), littleEndian);
+        return data.getInt32(nextGetIndex(4), littleEndian);
     }
 
     public int getIntAt(int i) {
         return data.getInt32(checkIndex2(i, 4), littleEndian);
     }
 
-    final int _nextGetIndex(int nb) { // package-private
+    final int nextGetIndex(int nb) { // package-private
         if (lim - pos < nb)
-            throw new BufferUnderflowException();
+            throw new js.nio.BufferUnderflowException();
         int p = pos;
         pos += nb;
         return p;
@@ -300,7 +303,8 @@ public class ByteBuffer {
     }
 
     public void putFloat(float f) {
-        throw new RuntimeException("TODO putFloat");
+        int index = ix(_nextPutIndex(4));
+        JSObjectAdapter.$js("this.data.setFloat32(index, f)");
     }
 
     public void putDouble(double value) {
@@ -318,7 +322,7 @@ public class ByteBuffer {
     }
 
     public short getShort() {
-        return Bits.getShort(this, ix(_nextGetIndex(2)), bigEndian);
+        return Bits.getShort(this, ix(nextGetIndex(2)), bigEndian);
     }
 
     public short getShortAt(int idx) {
@@ -338,7 +342,10 @@ public class ByteBuffer {
     }
 
     public ByteBuffer getBuf(byte[] dst) {
-        int length = dst.length;
+        return getBuf3(dst, 0, dst.length);
+    }
+
+    public ByteBuffer getBuf3(byte[] dst, int offset, int length) {
         checkBounds(offset, length, dst.length);
         if (length > remaining())
             throw new BufferUnderflowException();
@@ -346,10 +353,6 @@ public class ByteBuffer {
         for (int i = offset; i < end; i++)
             dst[i] = get();
         return this;
-    }
-
-    public ByteBuffer getBuf3(byte[] b, int off, int toRead) {
-        throw new RuntimeException("TODO ByteBuffer.getBuf3");
     }
 
     public static ByteBuffer allocateDirect(int capacity) {
@@ -364,4 +367,21 @@ public class ByteBuffer {
     public String toString() {
         return "ByteBuffer [pos=" + pos + ", lim=" + lim + ", cap=" + cap + "]";
     }
+    
+    @Override
+    public boolean equals(Object ob) {
+        if (this == ob)
+            return true;
+        if (!(ob instanceof ByteBuffer))
+            return false;
+        ByteBuffer that = (ByteBuffer)ob;
+        if (this.remaining() != that.remaining())
+            return false;
+        int p = this.position();
+        for (int i = this.limit() - 1, j = that.limit() - 1; i >= p; i--, j--)
+            if (this.getAt(i) != that.getAt(j))
+                return false;
+        return true;
+    }
+
 }

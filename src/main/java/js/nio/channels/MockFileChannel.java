@@ -43,7 +43,7 @@ public class MockFileChannel extends FileChannel {
     }
 
     public boolean isOpen() {
-        throw new RuntimeException("TODO");
+        return true;
     }
 
     public long position(Object... arguments) {
