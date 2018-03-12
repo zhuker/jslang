@@ -387,4 +387,8 @@ public class ZStream{
   public int inflateReset() {
     return istate.inflateReset();
   }
+
+  public int deflateReset() {
+    return dstate.deflateReset();
+  }
 }

@@ -43,7 +43,7 @@ final public class CRC32 implements Checksum {
    *  The following logic has come from RFC1952.
    */
   private int v = 0;
-  private static int[] crc_table = null;
+  public static int[] crc_table = null;
   static {
     crc_table = new int[256];
     for (int n = 0; n < 256; n++) {
